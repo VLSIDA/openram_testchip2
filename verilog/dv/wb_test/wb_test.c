@@ -92,22 +92,17 @@ void main()
 
 
 
-	// GPIO pin 27 Used to flag the start/end of a test 
-	// GPIO pin 29 Used to indicate error in writing/reading sram 8
-	// GPIO pin 30 Used to indicate error in writing/reading sram 9
+	// GPIO pin 9 Used to flag the start/end of a test 
+	// GPIO pin 10 Used to indicate error in writing/reading sram 
+	reg_mprj_io_9 = GPIO_MODE_MGMT_STD_OUTPUT;
+	reg_mprj_io_10 = GPIO_MODE_MGMT_STD_OUTPUT;
 
-	reg_mprj_io_27 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_28 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_29 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_30 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_31 = GPIO_MODE_MGMT_STD_OUTPUT;
-	//reg_mprj_io_34 = GPIO_MODE_MGMT_STD_OUTPUT;
 	/* Apply configuration */
 	reg_mprj_xfer = 1;
 	while (reg_mprj_xfer == 1);
 
 	// Flag start of the test
-	reg_mprj_datal = 0x08000000;
+	reg_mprj_datal = 0x00000200;
 
 
 	SRAM8_MEM(0) = 0xdeadbeef;
@@ -136,88 +131,108 @@ void main()
 
 	if (SRAM8_MEM(0) != 0xdeadbeef) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x10000000;
+		reg_mprj_datal = 0x00000600;
+		reg_mprj_datal = 0x00000200;
 	}
 	if (SRAM8_MEM(4) != 0xdeadbee0) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x10000000;
+		reg_mprj_datal = 0x00000600;
+		reg_mprj_datal = 0x00000200;
 	}
 	if (SRAM8_MEM(8) != 0xffffffff) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x10000000;
+		reg_mprj_datal = 0x00000600;
+		reg_mprj_datal = 0x00000200;
 	}
 	if (SRAM8_MEM(12) != 0xdeaddead) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x10000000;
+		reg_mprj_datal = 0x00000600;
+		reg_mprj_datal = 0x00000200;
 	}
 
 
 	if (SRAM9_MEM(0) != 0xbeefdead) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x20000000;
+		reg_mprj_datal = 0x00000600;
+		reg_mprj_datal = 0x00000200;
 	}
 	if (SRAM9_MEM(4) != 0xbee0dead) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x20000000;
+		reg_mprj_datal = 0x00000600;
+		reg_mprj_datal = 0x00000200;
 	}
 	if (SRAM9_MEM(8) != 0x12345678) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x20000000;
+		reg_mprj_datal = 0x00000600;
+		reg_mprj_datal = 0x00000200;
 	}
 	if (SRAM9_MEM(12) != 0x10101010) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x20000000;
+		reg_mprj_datal = 0x00000600;
+		reg_mprj_datal = 0x00000200;
 	}
 
 	if (SRAM10_MEM(0) != 0xbeef1234) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x40000000;
+		reg_mprj_datal = 0x00000600;
+		reg_mprj_datal = 0x00000200;
 	}
 	if (SRAM10_MEM(4) != 0xbee1dead) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x40000000;
+		reg_mprj_datal = 0x00000600;
+		reg_mprj_datal = 0x00000200;
 	}
 	if (SRAM10_MEM(8) != 0xabababab) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x40000000;
+		reg_mprj_datal = 0x00000600;
+		reg_mprj_datal = 0x00000200;
 	}
 	if (SRAM10_MEM(12) != 0x20202020) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x40000000;
+		reg_mprj_datal = 0x00000600;
+		reg_mprj_datal = 0x00000200;
 	}
 
 //	if (SRAM11_MEM(0) != 0xbeef5678) {
 //		// send an error signal to the testbench
-//		reg_mprj_datal = 0x80000000;
+//		reg_mprj_datal = 0x00000600;
+//		reg_mprj_datal = 0x00000200;
 //	}
 //	if (SRAM11_MEM(4) != 0xbee2dead) {
 //		// send an error signal to the testbench
-//		reg_mprj_datal = 0x80000000;
+//		reg_mprj_datal = 0x00000600;
+//		reg_mprj_datal = 0x00000200;
 //	}
 //	if (SRAM11_MEM(8) != 0xcdcdcdcd) {
 //		// send an error signal to the testbench
-//		reg_mprj_datal = 0x80000000;
+//		reg_mprj_datal = 0x00000600;
+//		reg_mprj_datal = 0x00000200;
 //	}
 //	if (SRAM11_MEM(12) != 0x30303030) {
 //		// send an error signal to the testbench
-//		reg_mprj_datal = 0x80000000;
+//		reg_mprj_datal = 0x00000600;
+//		reg_mprj_datal = 0x00000200;
 //	}
 
 //	if (SRAM12_MEM(0) != 0xbeef9abc) {
 //		// send an error signal to the testbench
-//		reg_mprj_datah = 0x00000004;
+//		reg_mprj_datah = 0x00000600;
+//		reg_mprj_datal = 0x00000200;
 //	}
 //	if (SRAM12_MEM(4) != 0xbee3dead) {
 //		// send an error signal to the testbench
-//		reg_mprj_datah = 0x00000004;
+//		reg_mprj_datah = 0x00000600;
+//		reg_mprj_datal = 0x00000200;
 //	}
 //	if (SRAM12_MEM(8) != 0xefefefef) {
 //		// send an error signal to the testbench
-//		reg_mprj_datah = 0x00000004;
+//		reg_mprj_datah = 0x00000600;
+//		reg_mprj_datal = 0x00000200;
 //	}
 //	if (SRAM12_MEM(12) != 0x40404040) {
 //		// send an error signal to the testbench
-//		reg_mprj_datah = 0x00000004;
+//		reg_mprj_datah = 0x00000600;
+//		reg_mprj_datal = 0x00000200;
 //	}
 
 	reg_mprj_datal = 0x00000000;			

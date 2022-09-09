@@ -26,26 +26,13 @@ module la_test_tb;
 
 	wire gpio;
 	wire [37:0] mprj_io;
-	wire mprj_io_25 = mprj_io[25];
-	wire mprj_io_26 = mprj_io[26];
-	wire mprj_io_27 = mprj_io[27];
-	wire mprj_io_28 = mprj_io[28];
-	wire mprj_io_29 = mprj_io[29];
-	wire mprj_io_30 = mprj_io[30];
-	wire mprj_io_31 = mprj_io[31];
-	wire mprj_io_32 = mprj_io[32];
-	wire mprj_io_33 = mprj_io[33];
-	wire mprj_io_34 = mprj_io[34];
-	wire mprj_io_35 = mprj_io[35];
-	wire mprj_io_36 = mprj_io[36];
-	wire mprj_io_37 = mprj_io[37];
 
 	// External clock is used by default.  Make this artificially fast for the
 	// simulation.  Normally this would be a slow clock and the digital PLL
 	// would be the fast clock.
 
 	// setting this pin makes the CSB in a known state causing no Xs in GL simulation
-	assign	mprj_io[3] = 1'b1;
+	//assign	mprj_io[3] = 1'b1;
 
 	always #12.5 clock <= (clock === 1'b0);
 
@@ -57,27 +44,28 @@ module la_test_tb;
 	wire gpio_sram_load = 1'b0;
 	wire global_csb = 1'b1;
 	wire gpio_in = 1'b0;
-	wire gpio_out = mprj_io[22];
+    wire gpio_out = mprj_io[`GPIO_OUT];
+	wire start = mprj_io[`START];
+    wire done = mprj_io[`DONE];
 
-	assign mprj_io[14] = 1'b0; // gpio/la test mode 
-	assign mprj_io[15] = 1'b1; // resetn
-	// assigning `b00 to pin 16 and 23 enables the clock from la
-	assign mprj_io[16] = 1'b0; // in_select[0]
-	assign mprj_io[23] = 1'b0; // in_select[1]
-	assign mprj_io[17] = gpio_clk;
-	assign mprj_io[18] = gpio_in;
-	assign mprj_io[19] = gpio_scan;
-	assign mprj_io[20] = gpio_sram_load;
-	assign mprj_io[21] = global_csb;
+	assign mprj_io[`MODE_SELECT1] = 1'b0; // gpio/la test mode
+	assign mprj_io[`MODE_SELECT0] = 1'b0; // la_clk select
+	assign mprj_io[`GPIO_RESETN] = 1'b1; // reset
+	assign mprj_io[`GPIO_CLK] = gpio_clk;
+	assign mprj_io[`GPIO_IN] = gpio_in;
+	assign mprj_io[`GPIO_SCAN] = gpio_scan;
+	assign mprj_io[`GPIO_SRAM_LOAD] = gpio_sram_load;
+	assign mprj_io[`GPIO_GLOBAL_CSB] = global_csb;
+
 	initial begin
 
-		wait(mprj_io_25 == 1'b1);
+		wait(start == 1'b1);
 		$display($time, " Saw bit 1: VCD starting");
 
 		$dumpfile("la_test.vcd");
 		$dumpvars(0, la_test_tb);
 
-		wait(mprj_io_25 == 1'b0);
+		wait(start == 1'b0);
 		$display($time, " Saw bit 0: VCD stopping");
 		$display("Done with tests");
 		$finish;
@@ -85,58 +73,10 @@ module la_test_tb;
 	end // initial begin
 	
 	initial begin
-		wait (mprj_io_26 == 1'b1);
-		$display($time, " Data mismatch while reading byte from SRAM 0!"); 
+		wait (done == 1'b1);
+		$display($time, " Data mismatch while reading byte from SRAM !"); 
 	end
 	
-	initial begin
-		wait (mprj_io_27 == 1'b1);
-		$display($time, " Data mismatch while reading byte from SRAM 1!"); 
-	end
-		
-	initial begin 
-		wait (mprj_io_28 == 1'b1);
-		$display($time, " Data mismatch while reading byte from SRAM 2!"); 
-	end
-
-	initial begin
-		wait (mprj_io_29 == 1'b1);
-		$display($time, " Data mismatch while reading byte from SRAM 3!"); 
-	end
-
-	initial begin
-		wait (mprj_io_30 == 1'b1);
-		$display($time, " Data mismatch while reading byte from SRAM 4!"); 
-	// by default this io is high in mpw5 (Do not know why?)
-//		wait (mprj_io_33 == 1'b1);
-	end
-
-	initial begin
-		wait (mprj_io_31 == 1'b1);
-		$display($time, " Data mismatch while reading byte from SRAM 5!"); 
-	// by default this io is high in mpw5 (Do not know why?)
-//		wait (mprj_io_33 == 1'b1);
-	end
-
-	initial begin
-		wait (mprj_io_34 == 1'b1);
-		$display($time, " Data mismatch while reading byte from SRAM 8!"); 
-	end
-
-	initial begin
-		wait (mprj_io_35 == 1'b1);
-		$display($time, " Data mismatch while reading byte from SRAM 9!"); 
-	end
-
-	initial begin
-		wait (mprj_io_36 == 1'b1);
-		$display($time, " Data mismatch while reading byte from SRAM 10!");
-	end
-
-//	initial begin
-//		wait (mprj_io_37 == 1'b1);
-//		$display($time, " Data mismatch while reading byte from SRAM 11!");
-//	end
 
    initial begin
       #10000000

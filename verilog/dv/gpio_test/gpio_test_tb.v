@@ -28,9 +28,8 @@ module gpio_test_tb;
 	reg power1, power2;
 	reg power3, power4;
 
-    	wire gpio;
-    	wire [37:0] mprj_io;
-        wire mprj_io_26 = mprj_io[26];
+    wire gpio;
+    wire [37:0] mprj_io;
 
 	// External clock is used by default.  Make this artificially fast for the
 	// simulation.  Normally this would be a slow clock and the digital PLL
@@ -50,24 +49,22 @@ module gpio_test_tb;
 	reg global_csb;
 	reg gpio_in;
 	reg done;
-        wire gpio_out = mprj_io[22];
 
-	assign mprj_io[14] = 1'b0; // gpio/la test mode
-	assign mprj_io[15] = 1'b1; // reset
-	assign mprj_io[16] = 1'b1; // in_select
-	assign mprj_io[23] = 1'b0; // in_select
-	assign mprj_io[17] = gpio_clk;
-	assign mprj_io[18] = gpio_in;
-	assign mprj_io[19] = gpio_scan;
-	assign mprj_io[20] = gpio_sram_load;
-	assign mprj_io[21] = global_csb;
-	assign mprj_io[27] = done;
+    wire gpio_out = mprj_io[`GPIO_OUT];
+    wire start = mprj_io[`START];
+	assign mprj_io[`MODE_SELECT1] = 1'b0; // gpio/la test mode
+	assign mprj_io[`MODE_SELECT0] = 1'b1; // gpio_clk select
+	assign mprj_io[`GPIO_RESETN] = 1'b1; // reset
+	assign mprj_io[`GPIO_CLK] = gpio_clk;
+	assign mprj_io[`GPIO_IN] = gpio_in;
+	assign mprj_io[`GPIO_SCAN] = gpio_scan;
+	assign mprj_io[`GPIO_SRAM_LOAD] = gpio_sram_load;
+	assign mprj_io[`GPIO_GLOBAL_CSB] = global_csb;
+	assign mprj_io[`DONE] = done;
 
 	reg [111:0] in_data;
-	reg [111:0] out_data;
 
    	 integer i,j;
-
 
 
    task write_sram;
@@ -118,7 +115,7 @@ module gpio_test_tb;
 	 global_csb = 1;
 	 gpio_scan = 1;
 	 gpio_sram_load = 0;
-	 in_data = {sel, addr0, din0, csb0, web0, 4'hF, addr1, din1, csb1, web1, 4'hF};
+	 in_data = {sel, addr0, 32'hFFFF, csb0, web0, 4'hF, addr1, 32'hFFFF, csb1, web1, 4'hF};
 
 	 for(j = 0; j < 112; j = j + 1) begin
 	    gpio_in = in_data[111 - j];
@@ -156,7 +153,7 @@ module gpio_test_tb;
 
 	initial begin
 
-            wait(mprj_io_26 == 1'b1);
+            wait(start == 1'b1);
             $display($time, " Saw bit 1: VCD starting");
 
 		$dumpfile("gpio_test.vcd");
@@ -181,7 +178,7 @@ module gpio_test_tb;
 			      16'd0,
 			      32'd0);
 
-		   // write i^3 to address 2
+		   // write i*2^3 to address 2
 		   write_sram(
 				  i,
 			      1'b0,
@@ -278,7 +275,6 @@ module gpio_test_tb;
 	wire USER_VDD1V8 = power4;
 	wire VSS = 1'b0;
 
-	assign mprj_io[3] = 1;  // Force CSB high.
 
 	caravel uut (
 		.vddio	  (VDD3V3),
@@ -297,7 +293,7 @@ module gpio_test_tb;
 		.vssd2	  (VSS),
 		.clock	  (clock),
 		.gpio     (gpio),
-        	.mprj_io  (mprj_io),
+       	.mprj_io  (mprj_io),
 		.flash_csb(flash_csb),
 		.flash_clk(flash_clk),
 		.flash_io0(flash_io0),

@@ -12,7 +12,7 @@ module openram_testchip(
 `endif
 			input         resetn,
 			input         clk,
-			input 		  mode_select,
+			input 		  wb_select,
 			input         la_in_load,
 			input         la_sram_load,
 			input  [`TOTAL_SIZE-1:0] la_data_in,
@@ -107,41 +107,41 @@ module openram_testchip(
 	wire ram8_csb0;
 	wire ram8_web0;
 	wire [`WMASK_SIZE-1:0] ram8_wmask0;
-	wire [7:0] ram8_addr0;
-	wire [31:0] ram8_din0;
-	wire [31:0] ram8_dout0;
+	wire [`ADDR_SIZE-1:0] ram8_addr0;
+	wire [`DATA_SIZE-1:0] ram8_din0;
+	wire [`DATA_SIZE-1:0] ram8_dout0;
 // wires connecting sram9 wrapper to sram9 macro
 	wire ram9_clk0;
 	wire ram9_csb0;
 	wire ram9_web0;
 	wire [`WMASK_SIZE-1:0] ram9_wmask0;
-	wire [7:0] ram9_addr0;
-	wire [31:0] ram9_din0;
-	wire [31:0] ram9_dout0;
+	wire [`ADDR_SIZE-1:0] ram9_addr0;
+	wire [`DATA_SIZE-1:0] ram9_din0;
+	wire [`DATA_SIZE-1:0] ram9_dout0;
 // wires connecting sram10 wrapper to sram10 macro
 	wire ram10_clk0;
 	wire ram10_csb0;
 	wire ram10_web0;
 	wire [`WMASK_SIZE-1:0] ram10_wmask0;
-	wire [7:0] ram10_addr0;
-	wire [31:0] ram10_din0;
-	wire [31:0] ram10_dout0;
+	wire [`ADDR_SIZE-1:0] ram10_addr0;
+	wire [`DATA_SIZE-1:0] ram10_din0;
+	wire [`DATA_SIZE-1:0] ram10_dout0;
 // wires connecting sram11 wrapper to sram11 macro
 	wire ram11_clk0;
 	wire ram11_csb0;
 	wire ram11_web0;
 	wire [`WMASK_SIZE-1:0] ram11_wmask0;
-	wire [7:0] ram11_addr0;
-	wire [31:0] ram11_din0;
-	wire [31:0] ram11_dout0;
+	wire [`ADDR_SIZE-1:0] ram11_addr0;
+	wire [`DATA_SIZE-1:0] ram11_din0;
+	wire [`DATA_SIZE-1:0] ram11_dout0;
 // wires connecting sram12 wrapper to sram12 macro
 	wire ram12_clk0;
 	wire ram12_csb0;
 	wire ram12_web0;
 	wire [`WMASK_SIZE-1:0] ram12_wmask0;
-	wire [7:0] ram12_addr0;
-	wire [31:0] ram12_din0;
-	wire [31:0] ram12_dout0;
+	wire [`ADDR_SIZE-1:0] ram12_addr0;
+	wire [`DATA_SIZE-1:0] ram12_din0;
+	wire [`DATA_SIZE-1:0] ram12_dout0;
 // wires connecting between mux & sram8
 	wire wbs_or8_stb;
 	wire wbs_or8_cyc;
@@ -367,7 +367,7 @@ end
 
 // Splitting register bits into fields
 always @(*) begin
-	if (mode_select) begin
+	if (wb_select) begin
 		if(wbs_stb_i && wbs_cyc_i) begin
 			// select on the basis of strobe signals here
 			// for example:
@@ -495,7 +495,7 @@ end
 always @(*) begin
 	// this can be improved like the following:
     // csb0 = ~( (~{15'b111111111111111, csb0_temp}) << chip_select);
-	if(mode_select) begin
+	if(wb_select) begin
 		if(wbs_stb_i && wbs_cyc_i) begin
 			if(wbs_or8_stb && !wbs_or9_stb && !wbs_or10_stb && !wbs_or11_stb && !wbs_or12_stb) begin
 				csb0 = {7'b1111111, csb0_temp, 8'b11111111};
