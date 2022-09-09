@@ -94,38 +94,70 @@ module user_project_wrapper #(
    wire [`MAX_CHIPS-1:0]  csb1;
 
    // specifies whether to use wishbone interface or gpio/la mode
-   // 1 -> wishbone
-   // 0 -> gpio/la
-   wire 	mode_select = io_in[14];
-
-   wire [1:0]    clk_select = {io_in[23],io_in[16]};
-   wire     gpio_resetn = io_in[15];
-   wire     gpio_clk = io_in[17];
-   wire     gpio_scan = io_in[19];
-   wire     gpio_sram_load = io_in[20];
-   wire     gpio_global_csb = io_in[21];
-   wire     gpio_in = io_in[18];
+   // mode_select[1] -> wishbone mode
+   // mode_select[0] -> gpio or la (wishbone takes priority)
+   wire [1:0]    mode_select = {io_in[`MODE_SELECT1],io_in[`MODE_SELECT0]};
+   wire     gpio_resetn = io_in[`GPIO_RESETN];
+   wire     gpio_clk = io_in[`GPIO_CLK];
+   wire     gpio_scan = io_in[`GPIO_SCAN];
+   wire     gpio_sram_load = io_in[`GPIO_SRAM_LOAD];
+   wire     gpio_global_csb = io_in[`GPIO_GLOBAL_CSB];
+   wire     gpio_in = io_in[`GPIO_IN];
    wire     la_clk = la_data_in[127];
    wire     la_reset = la_data_in[126];
    wire     la_in_load = la_data_in[125];
    wire     la_sram_load = la_data_in[124];
    wire     la_global_cs = la_data_in[123];
-   // Only io_out[22] is output
-   assign io_oeb = ~(1'b1 << 22);
-   // Assign other outputs to 0
-   assign io_out[`MPRJ_IO_PADS-1:23] = 0;
+
+   // Only io_out[`GPIO_OUT] is output
+   assign io_oeb = ~(1'b1 << `GPIO_OUT);
+
    wire     gpio_out;
-   assign io_out[22] = gpio_out;
-   assign io_out[21:0] = 0;
+   assign io_out[`GPIO_OUT] = gpio_out;
+   // Assign other outputs to 0
+   //assign io_out[`MPRJ_IO_PADS-1:`GPIO_OUT+1] = 0;
+   //assign io_out[`GPIO_OUT-1:0] = 0;
+
+    rram_test rram_test_0
+    (
+      `ifdef USE_POWER_PINS
+     .VDD(vccd1),
+     .GND(vssd1),
+      `endif
+    .pVDD_HEADER0(analog_io[`PVDD_HEADER0]),
+    .pGND_HEADER0(analog_io[`PGND_HEADER0]),
+    .pVDD_HEADER1(analog_io[`PVDD_HEADER1]),
+    .pGND_HEADER1(analog_io[`PGND_HEADER1]),
+    .p1T1R_TE(analog_io[`P1T1R_TE]),
+    .p1T1R_WL(analog_io[`P1T1R_WL]),
+    .p036_SL(analog_io[`P036_SL]),
+    .p100_SL(analog_io[`P100_SL]),
+    .p300_SL(analog_io[`P300_SL]),
+    .p700_SL(analog_io[`P700_SL]),
+    .p1R_TE(analog_io[`P1R_TE]),
+    .p1R_SL(analog_io[`P1R_SL]),
+    .BL0(analog_io[`BL0]),
+    .BL1(analog_io[`BL1]),
+    .BR0(analog_io[`BR0]),
+    .BR1(analog_io[`BR1]),
+    .RE_BL0(analog_io[`RE_BL0]),
+    .RE_BL1(analog_io[`RE_BL1]),
+    .RE_BR0(analog_io[`RE_BR0]),
+    .RE_BR1(analog_io[`RE_BR1]),
+    .WL0(analog_io[`WL0]),
+    .WL1(analog_io[`WL1]),
+    .RE_WL0(analog_io[`RE_WL0]),
+    .RE_WL1(analog_io[`RE_WL1])
+    );
 
    // Selecting clock pin
    reg clk;
    always @(*) begin
-	  case (clk_select)
+	  case (mode_select)
 	  	2'b00 : clk = la_clk;
 		2'b01 : clk = gpio_clk;
 		2'b10 : clk = wb_clk_i;
-		default : clk = 0;
+		default : clk = wb_clk_i;
 	  endcase
    end
 
@@ -140,7 +172,7 @@ module user_project_wrapper #(
 				  .resetn(rstn),
 				  .clk(clk),
 				  .global_csb(global_csb),
-				  .mode_select(mode_select),
+				  .wb_select(mode_select[1]),
 				  // gpio related control signals
 				  .gpio_scan(gpio_scan),
 				  .gpio_sram_load(gpio_sram_load),
@@ -259,7 +291,7 @@ sky130_sram_1kbyte_1rw1r_8x1024_8 SRAM0
       .clk0   (clk),
       .csb0   (csb0[0]),
       .web0   (web0),
-      .wmask0 (wmask0),
+      .wmask0 (wmask0[0]),
       .addr0  (addr0),
       .din0   (din0),
       .dout0  (sram0_dout0[7:0]),
@@ -616,6 +648,8 @@ sky130_sram_2kbyte_1rw_32x512_8 SRAM10
 	 sram15_data1 <= sram15_dout1;
       end
    end
+
+
 
 endmodule	// user_project_wrapper
 

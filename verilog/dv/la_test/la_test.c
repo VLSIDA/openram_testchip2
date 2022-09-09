@@ -134,7 +134,7 @@ void read_dp_sram(int sel){
 
 	//// Now read them
 	if(reg_la0_data_in != 0x00000050){
-		reg_mprj_datal = 0x04000000 << sel;
+		reg_mprj_datal = 0x00000400;
 	}
 }
 
@@ -196,7 +196,7 @@ void read_sp_sram(int sel){
 
 	// Now read them
 	if(reg_la2_data_in != 0x1DEADBEE){
-		reg_mprj_datah = 0x00000004 << (sel - 8);
+		reg_mprj_datal = 0x00000400;
 	}
 
 }
@@ -212,26 +212,15 @@ void main()
                                         // connect to housekeeping SPI
 
 	// This is to signal when the code is ready to the test bench
-	reg_mprj_io_25 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_26 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_27 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_28 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_29 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_30 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_31 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_32 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_33 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_34 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_35 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_36 = GPIO_MODE_MGMT_STD_OUTPUT;
-//	reg_mprj_io_37 = GPIO_MODE_MGMT_STD_OUTPUT;
+	reg_mprj_io_9 = GPIO_MODE_MGMT_STD_OUTPUT;
+	reg_mprj_io_10 = GPIO_MODE_MGMT_STD_OUTPUT;
  
 	/* Apply configuration */
 	reg_mprj_xfer = 1;
 	while (reg_mprj_xfer == 1);
 	
-	// To start, set pin 25 to 1
-	reg_mprj_datal = 0x02000000;
+	// To start, set pin 9 to 1
+	reg_mprj_datal = 0x00000200;
 	/* DUAL PORT MEMORIES */
 
 	//SRAM 0
@@ -282,6 +271,6 @@ void main()
 
 //	write_sp_sram(12);
 //	read_sp_sram(12);
-	// On end, set pin 8 to 0
+	// On end, set pin 9 to 0
 	reg_mprj_datal = 0x00000000;
 }
