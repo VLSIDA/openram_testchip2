@@ -51,19 +51,19 @@ void main()
                                         // connect to housekeeping SPI
 
 
-	reg_mprj_io_15 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
-	reg_mprj_io_16 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
-	reg_mprj_io_17 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
-	reg_mprj_io_18 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
-	reg_mprj_io_19 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
-	reg_mprj_io_20 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
-	reg_mprj_io_21 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_0 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_1 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_2 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_3 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_4 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_5 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_6 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_7 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_8 =  GPIO_MODE_USER_STD_OUTPUT;
 
-	// Configure Pin 22 as user output
 	// Observe counter value in the testbench
-	reg_mprj_io_22 =  GPIO_MODE_USER_STD_OUTPUT;
-	reg_mprj_io_26 =  GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_27 =  GPIO_MODE_MGMT_STD_INPUT_NOPULL;
+	reg_mprj_io_9 =  GPIO_MODE_MGMT_STD_OUTPUT;
+	reg_mprj_io_10 =  GPIO_MODE_MGMT_STD_INPUT_NOPULL;
 
 	// Configure LA probes as outputs from the cpu
 	reg_la0_oenb = reg_la0_iena = 0xFFFFFFFF;    // [31:0]
@@ -80,10 +80,10 @@ void main()
 	while (reg_mprj_xfer == 1);
 
 
-	// Set bit 26 when done
-	reg_mprj_datal = 0x04000000;
+	// Set bit 9 when done
+	reg_mprj_datal = 0x04000200;
 	while(1) {
-		if (reg_mprj_io_27 == 1)
+		if (reg_mprj_io_10 == 1)
 			break;
 	}
 }
