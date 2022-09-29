@@ -1,7 +1,7 @@
 ## Clock configurations
-set ::env(CLOCK_PORT) "io_in\[17\]"
+set ::env(CLOCK_PORT) "io_in\[3\]"
 set ::env(CLOCK_NET) "CONTROL_LOGIC.clk"
-set ::env(RESET_PORT) "io_in\[15\]"
+set ::env(RESET_PORT) "io_in\[2\]"
 
 set ::env(CLOCK_PERIOD) "30"
 
@@ -27,6 +27,7 @@ set all_inputs_wo_clk [lreplace [all_inputs] $clk_indx $clk_indx]
 set all_inputs_wo_clk_rst [lreplace $all_inputs_wo_clk $rst_indx $rst_indx]
 #set all_inputs_wo_clk_rst $all_inputs_wo_clk
 
+set_dont_touch [get_ports "analog_io*"] 
 
 # correct resetn
 #set_input_delay $input_delay_value  -clock [get_clocks $::env(CLOCK_PORT)] $all_inputs_wo_clk_rst
