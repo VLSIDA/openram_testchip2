@@ -52,6 +52,7 @@ module gpio_test_tb;
 
     wire gpio_out = mprj_io[`GPIO_OUT];
     wire start = mprj_io[`START];
+	assign mprj_io[`DONE] = done;
 	assign mprj_io[`MODE_SELECT1] = 1'b0; // gpio/la test mode
 	assign mprj_io[`MODE_SELECT0] = 1'b1; // gpio_clk select
 	assign mprj_io[`GPIO_RESETN] = 1'b1; // reset
@@ -60,7 +61,6 @@ module gpio_test_tb;
 	assign mprj_io[`GPIO_SCAN] = gpio_scan;
 	assign mprj_io[`GPIO_SRAM_LOAD] = gpio_sram_load;
 	assign mprj_io[`GPIO_GLOBAL_CSB] = global_csb;
-	assign mprj_io[`DONE] = done;
 
 	reg [111:0] in_data;
 
