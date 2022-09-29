@@ -121,8 +121,8 @@ module user_project_wrapper #(
     rram_test rram_test_0
     (
       `ifdef USE_POWER_PINS
-     .VDD(vccd1),
-     .GND(vssd1),
+     .vccd1(vccd1),
+     .vssd1(vssd1),
       `endif
     .pVDD_HEADER0(analog_io[`PVDD_HEADER0]),
     .pGND_HEADER0(analog_io[`PGND_HEADER0]),

@@ -1,9 +1,7 @@
 module rram_test (
 `ifdef USE_POWER_PINS
-    inout VDD, //1.8V digital
-    inout GND, //digital ground
-    //inout vccd1,
-    //inout vssd1,
+    inout vccd1,
+    inout vssd1,
 `endif
 
     inout pVDD_HEADER0,
