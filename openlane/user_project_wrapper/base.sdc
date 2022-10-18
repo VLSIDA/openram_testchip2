@@ -27,7 +27,7 @@ set all_inputs_wo_clk [lreplace [all_inputs] $clk_indx $clk_indx]
 set all_inputs_wo_clk_rst [lreplace $all_inputs_wo_clk $rst_indx $rst_indx]
 #set all_inputs_wo_clk_rst $all_inputs_wo_clk
 
-set_dont_touch [get_ports "analog_io*"] 
+#set_dont_touch [get_ports "analog_io*"] 
 
 # correct resetn
 #set_input_delay $input_delay_value  -clock [get_clocks $::env(CLOCK_PORT)] $all_inputs_wo_clk_rst

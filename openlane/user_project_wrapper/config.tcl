@@ -16,6 +16,7 @@
 
 set ::env(PDK) "sky130A"
 set ::env(STD_CELL_LIBRARY) "sky130_fd_sc_hd"
+#set ::env(STD_CELL_LIBRARY_OPT) "sky130_fd_sc_hd"
 
 # YOU ARE NOT ALLOWED TO CHANGE ANY VARIABLES DEFINED IN THE FIXED WRAPPER CFGS 
 source $::env(CARAVEL_ROOT)/openlane/user_project_wrapper/fixed_wrapper_cfgs.tcl
@@ -54,7 +55,7 @@ set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
 
 ### Black-box verilog and views
 set ::env(VERILOG_FILES_BLACKBOX) "\
-	$script_dir/../../caravel/verilog/rtl/defines.v \
+	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
 	$script_dir/../../verilog/rtl/openram_defines.v \
 	$script_dir/../../verilog/rtl/sky130_sram_1kbyte_1rw1r_32x256_8.v \
 	$script_dir/../../verilog/rtl/sky130_sram_1kbyte_1rw1r_8x1024_8.v \
@@ -97,6 +98,7 @@ set ::env(PL_DIAMOND_SEARCH_HEIGHT) 500
 #set ::env(PL_RANDOM_GLB_PLACEMENT) 1
 
 set ::env(GLB_RT_ADJUSTMENT) 0.25
+#set ::env(GRT_ADJUSTMENT) 0.25
 set ::env(PL_TARGET_DENSITY) 0.25
 
 #set ::env(MAGIC_DRC_USE_GDS) 0
