@@ -275,6 +275,8 @@ module gpio_test_tb;
 	wire USER_VDD1V8 = power4;
 	wire VSS = 1'b0;
 
+//	assign mprj_io[3] = 1;  // Force CSB high.
+    pullup(mprj_io[3]);
 
 	caravel uut (
 		.vddio	  (VDD3V3),
