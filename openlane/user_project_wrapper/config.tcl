@@ -37,6 +37,7 @@ set ::env(VERILOG_FILES) "\
 	$script_dir/../../verilog/rtl/user_project_wrapper.v \
     $script_dir/../../verilog/rtl/sky130_sram_2kbyte_32b_2bank.v \
 	$script_dir/../../verilog/rtl/wishbone_wrapper.v \
+	$script_dir/../../verilog/rtl/wishbone_wrapper_dp.v \
 	$script_dir/../../verilog/rtl/wishbone_ram_mux.v \
 	$script_dir/../../verilog/rtl/openram_testchip.v"
 
