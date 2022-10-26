@@ -133,6 +133,8 @@ module wb_test_tb;
 	assign VDD1V8 = power2;
 	assign VSS = 1'b0;
 
+	assign mprj_io[3] = (CSB == 1'b1) ? 1'b1 : 1'bz;
+
 	caravel uut (
 		.vddio	  (VDD3V3),
 		.vddio_2  (VDD3V3),
