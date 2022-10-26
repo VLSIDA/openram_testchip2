@@ -97,6 +97,10 @@ void main()
 	reg_wb_enable = 1;
 
 
+	reg_mprj_io_0 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_1 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_2 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_3 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
 
 
 	// GPIO pin 9 Used to flag the start/end of a test 
