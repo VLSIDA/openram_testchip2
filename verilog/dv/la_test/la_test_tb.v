@@ -123,6 +123,8 @@ module la_test_tb;
 	wire USER_VDD1V8 = power4;
 	wire VSS = 1'b0;
 
+	assign mprj_io[3] = (CSB == 1'b1) ? 1'b1 : 1'bz;
+
 	caravel uut (
 		.vddio	  (VDD3V3),
 		.vssio	  (VSS),
