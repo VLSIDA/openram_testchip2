@@ -224,8 +224,8 @@ void main()
 	/* DUAL PORT MEMORIES */
 
 	//SRAM 0
-//	write_dp_sram(0);
-//	read_dp_sram(0);
+	write_dp_sram(0);
+	read_dp_sram(0);
 
         //SRAM 1
     write_dp_sram(1);
