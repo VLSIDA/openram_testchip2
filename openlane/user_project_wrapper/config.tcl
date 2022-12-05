@@ -14,7 +14,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 
-set ::env(PDK) "sky130A"
+set ::env(PDK) $::env(PDK)
 set ::env(STD_CELL_LIBRARY) "sky130_fd_sc_hd"
 #set ::env(STD_CELL_LIBRARY_OPT) "sky130_fd_sc_hd"
 
@@ -32,9 +32,9 @@ set ::env(DESIGN_NAME) user_project_wrapper
 # User Configurations
 
 ## Source Verilog Files
-set ::env(VERILOG_FILES) "\
-	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
-	$script_dir/../../verilog/rtl/user_project_wrapper.v \
+set ::env(VERILOG_FILES) "\ 
+	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \ 
+	$script_dir/../../verilog/rtl/user_project_wrapper.v \ 
     $script_dir/../../verilog/rtl/sky130_sram_2kbyte_32b_2bank.v \
 	$script_dir/../../verilog/rtl/wishbone_wrapper.v \
 	$script_dir/../../verilog/rtl/wishbone_wrapper_dp.v \
@@ -42,9 +42,9 @@ set ::env(VERILOG_FILES) "\
 	$script_dir/../../verilog/rtl/openram_testchip.v"
 
 ## Clock configurations
-set ::env(CLOCK_PORT) {io_in\[17\]}
+set ::env(CLOCK_PORT) {io_in\[3\]}
 set ::env(CLOCK_NET) "CONTROL_LOGIC.clk"
-set ::env(RESET_PORT) {io_in\[15\] wb_rst_i}
+set ::env(RESET_PORT) {io_in\[2\] wb_rst_i}
 
 set ::env(CLOCK_PERIOD) "30"
 set ::env(BASE_SDC_FILE) "$script_dir/base.sdc"
@@ -55,40 +55,54 @@ set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
 
 
 ### Black-box verilog and views
-set ::env(VERILOG_FILES_BLACKBOX) "\
-	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
-	$script_dir/../../verilog/rtl/openram_defines.v \
-	$script_dir/../../verilog/rtl/sky130_sram_1kbyte_1rw1r_32x256_8.v \
-	$script_dir/../../verilog/rtl/sky130_sram_1kbyte_1rw1r_8x1024_8.v \
-	$script_dir/../../verilog/rtl/sky130_sram_2kbyte_1rw1r_32x512_8.v \
-	$script_dir/../../verilog/rtl/sky130_sram_4kbyte_1rw1r_32x1024_8.v \
-	$script_dir/../../verilog/rtl/sky130_sram_1kbyte_1rw_32x256_8.v \
-	$script_dir/../../verilog/rtl/sky130_sram_2kbyte_1rw_32x512_8.v \
+set ::env(VERILOG_FILES_BLACKBOX) "\ 
+	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \ 
+	$script_dir/../../verilog/rtl/openram_defines.v \ 
+	$script_dir/../../verilog/rtl/sky130_sram_1kbyte_1rw1r_32x256_8.v \ 
+	$script_dir/../../verilog/rtl/sky130_sram_1kbyte_1rw1r_8x1024_8.v \ 
+	$script_dir/../../verilog/rtl/sky130_sram_2kbyte_1rw1r_32x512_8.v \ 
+	$script_dir/../../verilog/rtl/sky130_sram_4kbyte_1rw1r_32x1024_8.v \ 
+	$script_dir/../../verilog/rtl/sky130_sram_1kbyte_1rw_32x256_8.v \ 
+	$script_dir/../../verilog/rtl/sky130_sram_2kbyte_1rw_32x512_8.v \ 
 	$script_dir/../../verilog/rtl/rram_test.v"
 
-set ::env(EXTRA_LEFS) "\
-	$script_dir/../../lef/sky130_sram_1kbyte_1rw1r_32x256_8.lef \
-	$script_dir/../../lef/sky130_sram_1kbyte_1rw1r_8x1024_8.lef \
-	$script_dir/../../lef/sky130_sram_2kbyte_1rw1r_32x512_8.lef \
-	$script_dir/../../lef/sky130_sram_4kbyte_1rw1r_32x1024_8.lef \
-	$script_dir/../../lef/sky130_sram_1kbyte_1rw_32x256_8.lef \
-	$script_dir/../../lef/sky130_sram_2kbyte_1rw_32x512_8.lef \
+set ::env(EXTRA_LEFS) "\   
+	$script_dir/../../lef/sky130_sram_1kbyte_1rw1r_32x256_8.lef \ 
+	$script_dir/../../lef/sky130_sram_1kbyte_1rw1r_8x1024_8.lef \ 
+	$script_dir/../../lef/sky130_sram_2kbyte_1rw1r_32x512_8.lef \ 
+	$script_dir/../../lef/sky130_sram_4kbyte_1rw1r_32x1024_8.lef \ 
+	$script_dir/../../lef/sky130_sram_1kbyte_1rw_32x256_8.lef \ 
+	$script_dir/../../lef/sky130_sram_2kbyte_1rw_32x512_8.lef \ 
 	$script_dir/../../lef/rram_test.lef"
 
 
-set ::env(EXTRA_GDS_FILES) "\
-	$script_dir/../../gds/sky130_sram_1kbyte_1rw1r_32x256_8.gds \
-	$script_dir/../../gds/sky130_sram_1kbyte_1rw1r_8x1024_8.gds \
-	$script_dir/../../gds/sky130_sram_2kbyte_1rw1r_32x512_8.gds \
-	$script_dir/../../gds/sky130_sram_4kbyte_1rw1r_32x1024_8.gds \
-	$script_dir/../../gds/sky130_sram_1kbyte_1rw_32x256_8.gds \
-	$script_dir/../../gds/sky130_sram_2kbyte_1rw_32x512_8.gds \
+set ::env(EXTRA_GDS_FILES) "\ 
+	$script_dir/../../gds/sky130_sram_1kbyte_1rw1r_32x256_8.gds \ 
+	$script_dir/../../gds/sky130_sram_1kbyte_1rw1r_8x1024_8.gds \ 
+	$script_dir/../../gds/sky130_sram_2kbyte_1rw1r_32x512_8.gds \ 
+	$script_dir/../../gds/sky130_sram_4kbyte_1rw1r_32x1024_8.gds \ 
+	$script_dir/../../gds/sky130_sram_1kbyte_1rw_32x256_8.gds \ 
+	$script_dir/../../gds/sky130_sram_2kbyte_1rw_32x512_8.gds \ 
 	$script_dir/../../gds/rram_test.gds"
+
+set ::env(FP_PDN_MACRO_HOOKS) "\  
+		rram_test_0 vccd1 vssd1 vccd1 vssd1,
+		SRAM0 vccd1 vssd1 vccd1 vssd1, 
+		SRAM1 vccd1 vssd1 vccd1 vssd1,
+		SRAM2.bank0 vccd1 vssd1 vccd1 vssd1,
+		SRAM2.bank1 vccd1 vssd1 vccd1 vssd1,
+		SRAM3 vccd1 vssd1 vccd1 vssd1,
+		SRAM4 vccd1 vssd1 vccd1 vssd1,
+		SRAM5 vccd1 vssd1 vccd1 vssd1,
+		SRAM6 vccd1 vssd1 vccd1 vssd1,
+		SRAM8 vccd1 vssd1 vccd1 vssd1,
+		SRAM9 vccd1 vssd1 vccd1 vssd1,
+		SRAM10 vccd1 vssd1 vccd1 vssd1" 
 
 # set ::env(GLB_RT_MAXLAYER) 5
 set ::env(RT_MAX_LAYER) {met4}
 
-set ::env(FP_PDN_CHECK_NODES) 0
+#set ::env(FP_PDN_CHECK_NODES) 0
 # Power config
 
 #set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
