@@ -303,7 +303,6 @@ sky130_sram_1kbyte_1rw1r_8x1024_8 SRAM0
       .clk0   (clk),
       .csb0   (csb0[0]),
       .web0   (web0),
-      .wmask0 (wmask0[0]),
       .addr0  (addr0),
       .din0   (din0),
       .dout0  (sram0_dout0[7:0]),
