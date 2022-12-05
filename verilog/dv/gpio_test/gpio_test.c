@@ -80,8 +80,8 @@ void main()
 	while (reg_mprj_xfer == 1);
 
 
-	// Set bit 9 when done
-	reg_mprj_datal = 0x04000200;
+	// Set bit 9 to start 
+	reg_mprj_datal = 0x00000200;
 	while(1) {
 		if (reg_mprj_io_10 == 1)
 			break;
