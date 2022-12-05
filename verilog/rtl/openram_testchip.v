@@ -140,7 +140,6 @@ module openram_testchip(
 	wire ram0_clk0;
 	wire ram0_csb0;
 	wire ram0_web0;
-	wire [`WMASK_SIZE-1:0] ram0_wmask0;
 	wire [`ADDR_SIZE-1:0] ram0_addr0;
 	wire [`DATA_SIZE-1:0] ram0_din0;
 	// PORT R
@@ -496,7 +495,7 @@ end
     	.ram_clk0(ram0_clk0),       	// (output) clock
     	.ram_csb0(ram0_csb0),       	// (output) active low chip select
     	.ram_web0(ram0_web0),       	// (output) active low write control
-    	.ram_wmask0(ram0_wmask0),   	// (output) (byte) mask from wb sent to sram
+    	.ram_wmask0(),   			// (output) (byte) mask from wb sent to sram
     	.ram_addr0(ram0_addr0),	   		// (output) addr from wb sent to sram
     	.ram_din0(wbs_sram0_data0),	   	// (input) read from sram and sent to wb 
     	.ram_dout0(ram0_din0),	   		// (output) for writing into the sram through wb
@@ -692,7 +691,7 @@ always @(*) begin
    				wmask1 = sram_register[`WMASK_SIZE-1:0];
 			end
 
-			if(wbs_or9_stb) begin
+			else if(wbs_or9_stb) begin
 				csb0_temp = ram9_csb0;
    				addr0 = ram9_addr0;
    				din0 = ram9_din0;
@@ -706,7 +705,7 @@ always @(*) begin
    				wmask1 = sram_register[`WMASK_SIZE-1:0];
 			end
 
-			if(wbs_or10_stb) begin
+			else if(wbs_or10_stb) begin
 				csb0_temp = ram10_csb0;
    				addr0 = ram10_addr0;
    				din0 = ram10_din0;
@@ -720,12 +719,12 @@ always @(*) begin
    				wmask1 = sram_register[`WMASK_SIZE-1:0];
 			end
 
-			if(wbs_or0_stb) begin 
+			else if(wbs_or0_stb) begin 
 				csb0_temp = ram0_csb0;
    				addr0 = ram0_addr0;
    				din0 = ram0_din0;
    				web0 = ram0_web0;
-   				wmask0 = ram0_wmask0;
+   				wmask0 = 'd0;
 				// PORT R
    				addr1 = ram0_addr1;
    				din1 = sram_register[`DATA_SIZE+`WMASK_SIZE+1:`WMASK_SIZE+2]; // dont care since we never write from port1 on any sram
@@ -734,7 +733,7 @@ always @(*) begin
    				wmask1 = sram_register[`WMASK_SIZE-1:0];    // dont care since we never write from port1 on any sram
 			end
 
-			if(wbs_or1_stb) begin
+			else if(wbs_or1_stb) begin
 				csb0_temp = ram1_csb0;
    				addr0 = ram1_addr0;
    				din0 = ram1_din0;
@@ -749,7 +748,7 @@ always @(*) begin
    				wmask1 = sram_register[`WMASK_SIZE-1:0];    // dont care since we never write from port1 on any sram
 			end
 
-			if(wbs_or2_stb) begin
+			else if(wbs_or2_stb) begin
 				csb0_temp = ram2_csb0;
    				addr0 = ram2_addr0;
    				din0 = ram2_din0;
@@ -763,7 +762,7 @@ always @(*) begin
    				wmask1 = sram_register[`WMASK_SIZE-1:0];    // dont care since we never write from port1 on any sram
 			end
 
-			if(wbs_or3_stb) begin
+			else if(wbs_or3_stb) begin
 				csb0_temp = ram3_csb0;
    				addr0 = ram3_addr0;
    				din0 = ram3_din0;
@@ -777,7 +776,7 @@ always @(*) begin
    				wmask1 = sram_register[`WMASK_SIZE-1:0];    // dont care since we never write from port1 on any sram
 			end
 
-			if(wbs_or4_stb) begin
+			else if(wbs_or4_stb) begin
 				csb0_temp = ram4_csb0;
    				addr0 = ram4_addr0;
    				din0 = ram4_din0;
@@ -791,7 +790,7 @@ always @(*) begin
    				wmask1 = sram_register[`WMASK_SIZE-1:0];    // dont care since we never write from port1 on any sram
 			end
 
-			if(wbs_or5_stb) begin
+			else if(wbs_or5_stb) begin
 				csb0_temp = ram5_csb0;
    				addr0 = ram5_addr0;
    				din0 = ram5_din0;
@@ -805,7 +804,7 @@ always @(*) begin
    				wmask1 = sram_register[`WMASK_SIZE-1:0];    // dont care since we never write from port1 on any sram
 			end
 
-			if(wbs_or6_stb) begin
+			else if(wbs_or6_stb) begin
 				csb0_temp = ram6_csb0;
    				addr0 = ram6_addr0;
    				din0 = ram6_din0;
@@ -817,6 +816,21 @@ always @(*) begin
    				csb1_temp = ram6_csb1; 
    				web1 = sram_register[`WMASK_SIZE];			// dont care since we never write from port1 on any sram
    				wmask1 = sram_register[`WMASK_SIZE-1:0];    // dont care since we never write from port1 on any sram
+			end
+			else begin
+				// wishbone mode and got the request but the addr did not
+				// match any sram memory map
+				addr0 = sram_register[`ADDR_SIZE+`DATA_SIZE+`PORT_SIZE+`WMASK_SIZE+1:`DATA_SIZE+`PORT_SIZE+`WMASK_SIZE+2];
+   				din0 = sram_register[`DATA_SIZE+`PORT_SIZE+`WMASK_SIZE+1:`PORT_SIZE+`WMASK_SIZE+2];
+   				csb0_temp = 1'b1;
+   				web0 = sram_register[`PORT_SIZE+`WMASK_SIZE];
+   				wmask0 = sram_register[`PORT_SIZE+`WMASK_SIZE-1:`PORT_SIZE];
+
+   				addr1 = sram_register[`PORT_SIZE-1:`DATA_SIZE+`WMASK_SIZE+2];
+   				din1 = sram_register[`DATA_SIZE+`WMASK_SIZE+1:`WMASK_SIZE+2];
+   				csb1_temp = 1'b1;
+   				web1 = sram_register[`WMASK_SIZE];
+   				wmask1 = sram_register[`WMASK_SIZE-1:0];
 			end
 		end else begin
 			// wishbone mode but did not receive request (stb && cyc != 1)
@@ -863,41 +877,45 @@ always @(*) begin
 				csb0 = {7'b1111111, csb0_temp, 8'b11111111};
 				csb1 = {16{1'b1}};
 			end
-			if(wbs_or9_stb) begin
+			else if(wbs_or9_stb) begin
 				csb0 = {6'b111111, csb0_temp, 9'b111111111};
 				csb1 = {16{1'b1}};
 			end
-			if(wbs_or10_stb) begin 
+			else if(wbs_or10_stb) begin 
 				csb0 = {5'b11111, csb0_temp, 10'b1111111111};
 				csb1 = {16{1'b1}};
 			end
-			if(wbs_or0_stb) begin
+			else if(wbs_or0_stb) begin
 				csb0 = {15'b111111111111111, csb0_temp};
 				csb1 = {15'b111111111111111, csb1_temp};
 			end
-			if(wbs_or1_stb) begin
+			else if(wbs_or1_stb) begin
 				csb0 = {14'b11111111111111, csb0_temp, 1'b1};
 				csb1 = {14'b11111111111111, csb1_temp, 1'b1};
 			end
-			if(wbs_or2_stb) begin
+			else if(wbs_or2_stb) begin
 				csb0 = {13'b1111111111111, csb0_temp, 2'b11};
 				csb1 = {13'b1111111111111, csb1_temp, 2'b11};
 			end
-			if(wbs_or3_stb) begin
+			else if(wbs_or3_stb) begin
 				csb0 = {12'b111111111111, csb0_temp, 3'b111};
 				csb1 = {12'b111111111111, csb1_temp, 3'b111};
 			end
-			if(wbs_or4_stb) begin
+			else if(wbs_or4_stb) begin
 				csb0 = {11'b11111111111, csb0_temp, 4'b1111};
 				csb1 = {11'b11111111111, csb1_temp, 4'b1111};
 			end
-			if(wbs_or5_stb) begin
+			else if(wbs_or5_stb) begin
 				csb0 = {10'b1111111111, csb0_temp, 5'b11111};
 				csb1 = {10'b1111111111, csb1_temp, 5'b11111};
 			end
-			if(wbs_or6_stb) begin
+			else if(wbs_or6_stb) begin
 				csb0 = {9'b111111111, csb0_temp, 6'b111111};
 				csb1 = {9'b111111111, csb1_temp, 6'b111111};
+			end
+			else begin
+				csb0 = {16{1'b1}};
+				csb1 = {16{1'b1}};
 			end
 		end
 		else begin
