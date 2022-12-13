@@ -2375,6 +2375,9 @@ MACRO rram_test
   END pGND_HEADER1
   PIN vssd1
     ANTENNADIFFAREA 0.432000 ;
+	DIRECTION INOUT ;
+    USE GROUND ; 
+    SHAPE ABUTMENT ;
     PORT
       LAYER li1 ;
         RECT 17.290 4.315 17.460 4.645 ;
@@ -2518,6 +2521,9 @@ MACRO rram_test
     END
   END vssd1
   PIN vccd1
+    DIRECTION INOUT ;
+    USE POWER ; 
+    SHAPE ABUTMENT ;
     ANTENNADIFFAREA 1.132100 ;
     PORT
       LAYER nwell ;
