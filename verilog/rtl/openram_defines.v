@@ -19,12 +19,11 @@
 `define GPIO_OUT 8
 `define START 9
 `define DONE 10
+`define PVDD_HEADER0 12
+`define PGND_HEADER0 13
+`define PVDD_HEADER1 14
+`define PGND_HEADER1 15
 
-
-`define PVDD_HEADER0 5
-`define PGND_HEADER0 6
-`define PVDD_HEADER1 7
-`define PGND_HEADER1 8
 `define P1T1R_TE 9
 `define P1T1R_WL 10
 `define P036_SL 11
