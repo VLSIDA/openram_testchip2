@@ -97,23 +97,27 @@ void main()
 	reg_wb_enable = 1;
 
 
-	reg_mprj_io_0 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
-	reg_mprj_io_1 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
-	reg_mprj_io_2 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
-	reg_mprj_io_3 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	// GPIO pin 0 Used to flag the start/end of a test 
+	// GPIO pin 1 Used to indicate error in writing/reading sram 
+	reg_mprj_io_0 = GPIO_MODE_MGMT_STD_OUTPUT;
+	reg_mprj_io_1 = GPIO_MODE_MGMT_STD_OUTPUT;
 
-
-	// GPIO pin 9 Used to flag the start/end of a test 
-	// GPIO pin 10 Used to indicate error in writing/reading sram 
-	reg_mprj_io_9 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_10 = GPIO_MODE_MGMT_STD_OUTPUT;
+	reg_mprj_io_5  =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_6  =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_7  =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_8  =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_9  =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_10 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_11 =  GPIO_MODE_USER_STD_OUTPUT;
+	reg_mprj_io_36 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_37 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
 
 	/* Apply configuration */
 	reg_mprj_xfer = 1;
 	while (reg_mprj_xfer == 1);
 
 	// Flag start of the test
-	reg_mprj_datal = 0x00000200;
+	reg_mprj_datal = 0x00000001;
 
 
 
@@ -163,213 +167,213 @@ void main()
 
 	if (SRAM0_MEM(0) != 0x000000ef) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM0_MEM(4) != 0x000000fe) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM0_MEM(8) != 0x000000ab) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM0_MEM(2048) != 0x000000bb) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 
 	if (SRAM1_MEM(0) != 0xcafebabe) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM1_MEM(4) != 0xbabecafe) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM1_MEM(8) != 0xcafebaba) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM1_MEM(12) != 0xcafeeeee) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 
 	if (SRAM2_MEM(0) != 0xfeedfeed) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM2_MEM(4) != 0xdeefdeef) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM2_MEM(8) != 0xfeedfeeb) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM2_MEM(12) != 0xfeeddddd) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 
 	if (SRAM3_MEM(0) != 0xbeef5678) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM3_MEM(4) != 0xbee2dead) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM3_MEM(8) != 0xcdcdcdcd) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM3_MEM(12) != 0x30303030) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 
 	if (SRAM4_MEM(0) != 0xbeef9abc) {
 		// send an error signal to the testbench
-		reg_mprj_datah = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM4_MEM(4) != 0xbee3dead) {
 		// send an error signal to the testbench
-		reg_mprj_datah = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM4_MEM(8) != 0xefefefef) {
 		// send an error signal to the testbench
-		reg_mprj_datah = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM4_MEM(12) != 0x40404040) {
 		// send an error signal to the testbench
-		reg_mprj_datah = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 
 	if (SRAM5_MEM(0) != 0xdeeddeed) {
 		// send an error signal to the testbench
-		reg_mprj_datah = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM5_MEM(4) != 0xbeedbeed) {
 		// send an error signal to the testbench
-		reg_mprj_datah = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM5_MEM(8) != 0xbedbedbe) {
 		// send an error signal to the testbench
-		reg_mprj_datah = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM5_MEM(12) != 0xdeeddddd) {
 		// send an error signal to the testbench
-		reg_mprj_datah = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 
 	if (SRAM6_MEM(0) != 0xdeadcafe) {
 		// send an error signal to the testbench
-		reg_mprj_datah = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM6_MEM(4) != 0xcafedead) {
 		// send an error signal to the testbench
-		reg_mprj_datah = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM6_MEM(8) != 0xdeadbaba) {
 		// send an error signal to the testbench
-		reg_mprj_datah = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM6_MEM(12) != 0xdeaddddd) {
 		// send an error signal to the testbench
-		reg_mprj_datah = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 
 	if (SRAM8_MEM(0) != 0xdeadbeef) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM8_MEM(4) != 0xdeadbee0) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM8_MEM(8) != 0xffffffff) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM8_MEM(12) != 0xdeaddead) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 
 
 	if (SRAM9_MEM(0) != 0xbeefdead) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM9_MEM(4) != 0xbee0dead) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM9_MEM(8) != 0x12345678) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM9_MEM(12) != 0x10101010) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 
 	if (SRAM10_MEM(0) != 0xbeef1234) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM10_MEM(4) != 0xbee1dead) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM10_MEM(8) != 0xabababab) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 	if (SRAM10_MEM(12) != 0x20202020) {
 		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000600;
-		reg_mprj_datal = 0x00000200;
+		reg_mprj_datal = 0x00000003;
+		reg_mprj_datal = 0x00000002;
 	}
 
 

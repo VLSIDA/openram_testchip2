@@ -196,7 +196,8 @@ void read_sp_sram(int sel){
 
 	// Now read them
 	if(reg_la2_data_in != 0x1DEADBEE){
-		reg_mprj_datal = 0x00000400;
+		// assert pin 1 (done) to signal error
+		reg_mprj_datal = 0x00000002;
 	}
 
 }
@@ -210,17 +211,25 @@ void main()
 	// old version. This errors out now, there is no spimaster config register
 	//reg_spimaster_config = 0xa002;	// Enable, prescaler = 2,
                                         // connect to housekeeping SPI
-
 	// This is to signal when the code is ready to the test bench
-	reg_mprj_io_9 = GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_10 = GPIO_MODE_MGMT_STD_OUTPUT;
+	reg_mprj_io_0 =  GPIO_MODE_MGMT_STD_OUTPUT;
+	reg_mprj_io_1 =  GPIO_MODE_MGMT_STD_OUTPUT;
+	reg_mprj_io_5  =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_6  =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_7  =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_8  =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_9  =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_10 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_11 =  GPIO_MODE_USER_STD_OUTPUT;
+	reg_mprj_io_36 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
+	reg_mprj_io_37 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
  
 	/* Apply configuration */
 	reg_mprj_xfer = 1;
 	while (reg_mprj_xfer == 1);
 	
-	// To start, set pin 9 to 1
-	reg_mprj_datal = 0x00000200;
+	// To start, set pin 0 to 1
+	reg_mprj_datal = 0x00000001;
 	/* DUAL PORT MEMORIES */
 
 	//SRAM 0
