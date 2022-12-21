@@ -151,23 +151,23 @@ module gpio_test_tb;
    endtask // read_sram
 
    initial begin
-      #800000
+      #8000000
       $display("Timeout");
       $finish;
    end
 
 	initial begin
 
-            wait(start == 1'b1);
-            $display($time, " Saw bit 1: VCD starting");
-
+        wait(start == 1'b1);
+        $display($time, " Saw bit 1: VCD starting");
 		$dumpfile("gpio_test.vcd");
 		$dumpvars(0, gpio_test_tb);
+    
 
 		done = 0;
 		global_csb = 1;
 
-	   # 100;
+	   # 600;
 
 		//Testing 32B Dual Port Memories
 		for(i = 0; i < 7; i = i + 1) begin

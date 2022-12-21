@@ -50,7 +50,7 @@ module la_test_tb;
 
 	assign mprj_io[`MODE_SELECT1] = 1'b0; // gpio/la test mode
 	assign mprj_io[`MODE_SELECT0] = 1'b0; // la_clk select
-	assign mprj_io[`GPIO_RESETN] = 1'b1; // reset
+	assign mprj_io[`GPIO_RESETN] = 1'b0; // reset
 	assign mprj_io[`GPIO_CLK] = gpio_clk;
 	assign mprj_io[`GPIO_IN] = gpio_in;
 	assign mprj_io[`GPIO_SCAN] = gpio_scan;

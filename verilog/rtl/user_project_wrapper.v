@@ -150,14 +150,29 @@ module user_project_wrapper #(
     .RE_WL1(analog_io[`RE_WL1])
     );
 
-   // Selecting clock pin
+   // Selecting clock and reset pin
    reg clk;
+   reg rstn;
+
+   // 4 modes
+   // 00 <- la test mode
+   // 01 <- gpio test mode
+   // 10 <- wb test mode
+   // 11 <- rram test mode
    always @(*) begin
 	  case (mode_select)
 	  	2'b00 : clk = la_clk;
 		2'b01 : clk = gpio_clk;
 		2'b10 : clk = wb_clk_i;
-		default : clk = wb_clk_i;
+		default : clk = 1'b0;
+	  endcase
+   end
+
+   always @(*) begin
+	  case (mode_select)
+	  	2'b00 : rstn = ~la_reset;
+		2'b01 : rstn = gpio_resetn;
+		default : rstn = 1'b1;
 	  endcase
    end
 
@@ -166,13 +181,15 @@ module user_project_wrapper #(
    wire global_csb = gpio_global_csb & ~la_global_cs;
    // rstn is low with either GPIO or LA reset
    // la_reset is not active low because default LA values are 0
-   wire rstn = gpio_resetn & ~la_reset;
+   //wire rstn = gpio_resetn & ~la_reset;
+
+   wire wb_select = mode_select[1] & ~mode_select[0];
 
    openram_testchip CONTROL_LOGIC(
 				  .resetn(rstn),
 				  .clk(clk),
 				  .global_csb(global_csb),
-				  .wb_select(mode_select[1]),
+				  .wb_select(wb_select),
 				  // gpio related control signals
 				  .gpio_scan(gpio_scan),
 				  .gpio_sram_load(gpio_sram_load),
