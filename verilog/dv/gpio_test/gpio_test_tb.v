@@ -51,8 +51,10 @@ module gpio_test_tb;
 	reg done;
 
     wire gpio_out = mprj_io[`GPIO_OUT];
-    wire start = mprj_io[`START];
-	assign mprj_io[`DONE] = done;
+    //wire start = mprj_io[`START];
+    wire start = mprj_io[12];
+	//assign mprj_io[`DONE] = done;
+	assign mprj_io[13] = done;
 	assign mprj_io[`MODE_SELECT1] = 1'b0; // gpio/la test mode
 	assign mprj_io[`MODE_SELECT0] = 1'b1; // gpio_clk select
 	assign mprj_io[`GPIO_RESETN] = 1'b1; // reset
@@ -158,7 +160,7 @@ module gpio_test_tb;
 
 	initial begin
 
-        wait(start == 1'b1);
+        //wait(start == 1'b1);
         $display($time, " Saw bit 1: VCD starting");
 		$dumpfile("gpio_test.vcd");
 		$dumpvars(0, gpio_test_tb);
@@ -167,7 +169,7 @@ module gpio_test_tb;
 		done = 0;
 		global_csb = 1;
 
-	   # 600;
+	   #2000000;
 
 		//Testing 32B Dual Port Memories
 		for(i = 0; i < 7; i = i + 1) begin
