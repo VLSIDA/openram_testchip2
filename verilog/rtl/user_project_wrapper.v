@@ -153,6 +153,7 @@ module user_project_wrapper #(
    // Selecting clock and reset pin
    reg clk;
    reg rstn;
+   reg global_csb;
 
    // 4 modes
    // 00 <- la test mode
@@ -176,9 +177,17 @@ module user_project_wrapper #(
 	  endcase
    end
 
+   always @(*) begin
+	  case (mode_select)
+	  	2'b00 : global_csb   = ~la_global_cs;
+		2'b01 : global_csb   = gpio_global_csb;
+		default : global_csb = 1'b1;
+	  endcase
+   end
+
    // global csb is low with either GPIO or LA csb
    // la_global_cs is low because default LA values are 0
-   wire global_csb = gpio_global_csb & ~la_global_cs;
+   //wire global_csb = gpio_global_csb & ~la_global_cs;
    // rstn is low with either GPIO or LA reset
    // la_reset is not active low because default LA values are 0
    //wire rstn = gpio_resetn & ~la_reset;
