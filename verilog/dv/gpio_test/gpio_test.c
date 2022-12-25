@@ -48,12 +48,8 @@ void main()
 
 	reg_spi_enable = 1;
 
-	//reg_mprj_io_0 =  GPIO_MODE_MGMT_STD_OUTPUT;
-	//reg_mprj_io_1 =  GPIO_MODE_MGMT_STD_INPUT_NOPULL;
-
-
-	reg_mprj_io_12 =  GPIO_MODE_MGMT_STD_OUTPUT;
-	reg_mprj_io_13 =  GPIO_MODE_MGMT_STD_INPUT_NOPULL;
+	reg_mprj_io_0 =  GPIO_MODE_MGMT_STD_OUTPUT;
+	reg_mprj_io_1 =  GPIO_MODE_MGMT_STD_INPUT_NOPULL;
 
 	reg_mprj_io_5  =  GPIO_MODE_USER_STD_INPUT_NOPULL;
 	reg_mprj_io_6  =  GPIO_MODE_USER_STD_INPUT_NOPULL;
@@ -65,26 +61,14 @@ void main()
 	reg_mprj_io_36 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
 	reg_mprj_io_37 =  GPIO_MODE_USER_STD_INPUT_NOPULL;
 
-	// Configure LA probes as outputs from the cpu
-	reg_la0_oenb = reg_la0_iena = 0xFFFFFFFF;    // [31:0]
-	reg_la1_oenb = reg_la1_iena = 0xFFFFFFFF;    // [63:32]
-	reg_la2_oenb = reg_la2_iena = 0xFFFFFFFF;    // [95:64]
-	reg_la3_oenb = reg_la3_iena = 0xFFFFFFFF;    // [127:96]
-	reg_la0_data = 0x00000000;
-	reg_la1_data = 0x00000000;
-	reg_la2_data = 0x00000000;
-	reg_la3_data = 0x00000000;
-
 
 	/* Apply configuration */
 	reg_mprj_xfer = 1;
 	while (reg_mprj_xfer == 1);
-
-
-	// Set pin 12 to start 
-	reg_mprj_datal = 0x00001000;
+	// Set pin 0 to start 
+	reg_mprj_datal = 0x00000001;
 	while(1) {
-		if (reg_mprj_io_13 == 1)
+		if (reg_mprj_io_1 == 1)
 			break;
 	}
 }
