@@ -58,32 +58,32 @@ of packet bits.
 
 In GPIO mode, the test packet is scanned in/out with the GPIO pins in 112 cycles. The
 GPIO pins used are as follows:
-* Mode select: mode_select  io_in[1:0]
-* Scan reset: resetn: io_in[2]
-* Scan clock: gpio_clk io_in[3]
-* Scan enable: gpio_scan io_in[4]
-* Load SRAM result into register: gpio_sram_load io_in[5]
-* CSB for all SRAM: global_csb io_in[6]
-* Scan input: gpio_in io_in[7]
-* Scan output: gpio_out io_out[8]
+* Mode select: `io_in[1:0] = 2'b01`
+* Scan reset: `io_in[2]`
+* Scan clock: `io_in[3]`
+* Scan enable: `io_in[4]`
+* Load SRAM result into register: `io_in[5]`
+* CSB for all SRAM: `io_in[6]`
+* Scan input: `io_in[7]`
+* Scan output: `io_out[8]`
 
 
 ## LA Mode
 
 In LA mode, the test packet is directly written from the output of the 128-bit LA.
-* Mode select: mode_select io_in[1:0]     // makes sure the clk goes through the la_data_in[127]
-* Control register clock: la_clk la_data_in[127]
-* Load control register: la_in_load la_data_in[125]
-* Load SRAM result into register: la_sram_load la_data_in[124]
-* CSB for all SRAM: la_global_cs la_data_in[123]
+* Mode select: `io_in[1:0] = 2'b00`
+* Control register clock: `la_data_in[127]`
+* Load control register: `la_data_in[125]`
+* Load SRAM result into register: `la_data_in[124]`
+* CSB for all SRAM: `la_data_in[123]`
 
-## Wishbone Mode (WIP)
+## Wishbone Mode 
 
-The wishbone mode currently tests the single port memories. The wishbone interface is used to provide data packet to the memories based on the address map of each memory.
-* Mode select: mode_select io_in[1:0]
-* CSB for all SRAM: based on the wbs_cyc_i, wbs_stb_i and wbs_adr_i. 
-* Data for all SRAM: wbs_dat_i
-* Write enable for all SRAM: wbs_we_i
+The wishbone mode tests the memories through the wishbone interface. The interface is used to provide data packet to the memories based on the address map of each memory.
+* Mode select: `io_in[1:0] = 2'b10`
+* CSB for all SRAM:  `wbs_cyc_i, wbs_stb_i and wbs_adr_i`
+* Data for all SRAM: `wbs_dat_i`
+* Write enable for all SRAM: `wbs_we_i`
 
 
 # Authors
