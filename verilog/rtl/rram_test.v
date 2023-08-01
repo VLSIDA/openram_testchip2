@@ -4,10 +4,10 @@ module rram_test (
     inout vssd1,
 `endif
 
-    inout pVDD_HEADER0,
-    inout pGND_HEADER0,
-    inout pVDD_HEADER1,
-    inout pGND_HEADER1,
+    input pVDD_HEADER0,
+    input pGND_HEADER0,
+    input pVDD_HEADER1,
+    input pGND_HEADER1,
     inout p1T1R_TE,
     inout p1T1R_WL,
     inout p036_SL,
