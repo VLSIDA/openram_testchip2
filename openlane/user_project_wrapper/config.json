@@ -1,6 +1,7 @@
 {
     "DESIGN_NAME": "user_project_wrapper",
     "VERILOG_FILES": ["dir::../../verilog/rtl/defines.v", 
+			"dir::../../verilog/rtl/openram_defines.v",
 			"dir::../../verilog/rtl/user_project_wrapper.v",
 		"dir::../../verilog/rtl/sky130_sram_2kbyte_32b_2bank.v",
 		"dir::../../verilog/rtl/wishbone_wrapper.v",
