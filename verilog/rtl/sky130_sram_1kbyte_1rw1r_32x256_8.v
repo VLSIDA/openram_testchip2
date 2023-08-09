@@ -1,3 +1,4 @@
+/// sta-blackbox
 // OpenRAM SRAM model
 // Words: 256
 // Word size: 32

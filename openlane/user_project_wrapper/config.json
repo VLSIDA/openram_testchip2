@@ -16,8 +16,7 @@
 	"FP_PIN_ORDER_CFG": "dir::../../caravel/openlane/user_project_wrapper/pin_order.cfg",
     "FP_PDN_MACRO_HOOKS": "rram_test_0 vccd1 vssd1 vccd1 vssd1,SRAM0 vccd1 vssd1 vccd1 vssd1, SRAM1 vccd1 vssd1 vccd1 vssd1, SRAM2.bank0 vccd1 vssd1 vccd1 vssd1, SRAM2.bank1 vccd1 vssd1 vccd1 vssd1, SRAM3 vccd1 vssd1 vccd1 vssd1, SRAM4 vccd1 vssd1 vccd1 vssd1, SRAM5 vccd1 vssd1 vccd1 vssd1, SRAM6 vccd1 vssd1 vccd1 vssd1, SRAM8 vccd1 vssd1 vccd1 vssd1, SRAM9 vccd1 vssd1 vccd1 vssd1, SRAM10 vccd1 vssd1 vccd1 vssd1", 
     "MACRO_PLACEMENT_CFG": "dir::macro.cfg",
-    "VERILOG_FILES_BLACKBOX": ["dir::../../verilog/rtl/defines.v", 
-			"dir::../../verilog/rtl/openram_defines.v",
+    "VERILOG_FILES_BLACKBOX": [
 			"dir::../../verilog/rtl/sky130_sram_1kbyte_1rw1r_32x256_8.v",
 			"dir::../../verilog/rtl/sky130_sram_1kbyte_1rw1r_8x1024_8.v",
 			"dir::../../verilog/rtl/sky130_sram_2kbyte_1rw1r_32x512_8.v",
@@ -32,6 +31,7 @@
 			"dir::../../lef/sky130_sram_1kbyte_1rw_32x256_8.lef",
 			"dir::../../lef/sky130_sram_2kbyte_1rw_32x512_8.lef",
 			"dir::../../lef/rram_test.lef"],
+    "EXTRA_LIBS": ["dir::../../lib/sky130_sram_1kbytes_1rw1r_32x256_8_TT_1p8V_25C.lib"],
     "EXTRA_GDS_FILES": [
 		    "dir::../../gds/sky130_sram_1kbyte_1rw1r_32x256_8.gds", 
 		    "dir::../../gds/sky130_sram_1kbyte_1rw1r_8x1024_8.gds",  
@@ -40,6 +40,7 @@
 		    "dir::../../gds/sky130_sram_1kbyte_1rw_32x256_8.gds",  
 		    "dir::../../gds/sky130_sram_2kbyte_1rw_32x512_8.gds",  
 		    "dir::../../gds/rram_test.gds"],
+    "QUIT_ON_SYNTH_CHECKS": 1,
     "FP_PDN_CORE_RING": 1,
     "FP_PDN_CHECK_NODES": 1,
     "PL_RESIZER_BUFFER_INPUT_PORTS": 0,
