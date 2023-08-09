@@ -24,20 +24,20 @@ module wishbone_wrapper_dp
 
     // OpenRAM interface - almost dual port: RW + R
     // Port 0: RW
-    output                      ram_clk0,       // clock
-    output                      ram_csb0,       // active low chip select
-    output                      ram_web0,       // active low write control
-    output  [3:0]              	ram_wmask0,     // write (byte) mask
-    output  [13:0]    			ram_addr0,
-    input   [31:0]              ram_din0,
-    output  [31:0]              ram_dout0,
+    output                          ram_clk0,       // clock
+    output                          ram_csb0,       // active low chip select
+    output                          ram_web0,       // active low write control
+    output  [3:0]              	    ram_wmask0,     // write (byte) mask
+    output  [$clog2(NO_OF_ROWS)-1:0]  ram_addr0,
+    input   [31:0]                  ram_din0,
+    output  [31:0]                  ram_dout0,
 	
     // Port 1: R
 	// add ports here
-    output  					ram_clk1,
-    output  					ram_csb1,
-    output  [13:0]    			ram_addr1,
-    input   [31:0]              ram_din1
+    output  					              ram_clk1,
+    output  					              ram_csb1,
+    output  [$clog2(NO_OF_ROWS)-1:0]  ram_addr1,
+    input   [31:0]                  ram_din1
 
 );
 
@@ -102,8 +102,9 @@ module wishbone_wrapper_dp
 	assign ram_csb1 = enable_csb1;
 	assign ram_web0 = ~wbs_we_i;
 	assign ram_wmask0 = wbs_sel_i;
-	assign ram_addr0 = wbs_adr_i[15:2];
-	assign ram_addr1 = wbs_adr_i[15:2];
+	assign ram_addr0 = wbs_adr_i[$clog2(NO_OF_ROWS)+1:2];
+	assign ram_addr1 = wbs_adr_i[$clog2(NO_OF_ROWS)+1:2];
+
 	assign ram_dout0 = wbs_dat_i;
 	
 	assign wbs_dat_o = sram_read_data;

@@ -120,6 +120,7 @@ module openram_testchip(
 	wire ram8_web0;
 	wire [`WMASK_SIZE-1:0] ram8_wmask0;
 	wire [`ADDR_SIZE-1:0] ram8_addr0;
+  assign ram8_addr0[`ADDR_SIZE-1:$clog2(512)] = 0;
 	wire [`DATA_SIZE-1:0] ram8_din0;
 // wires connecting sram9 wrapper to sram9 macro
 	wire ram9_clk0;
@@ -127,6 +128,7 @@ module openram_testchip(
 	wire ram9_web0;
 	wire [`WMASK_SIZE-1:0] ram9_wmask0;
 	wire [`ADDR_SIZE-1:0] ram9_addr0;
+  assign ram9_addr0[`ADDR_SIZE-1:$clog2(1024)] = 0;
 	wire [`DATA_SIZE-1:0] ram9_din0;
 // wires connecting sram10 wrapper to sram10 macro
 	wire ram10_clk0;
@@ -134,6 +136,7 @@ module openram_testchip(
 	wire ram10_web0;
 	wire [`WMASK_SIZE-1:0] ram10_wmask0;
 	wire [`ADDR_SIZE-1:0] ram10_addr0;
+  assign ram10_addr0[`ADDR_SIZE-1:$clog2(1024)] = 0;
 	wire [`DATA_SIZE-1:0] ram10_din0;
 // wires connecting sram0 wrapper to sram0 macro
     // PORT RW
@@ -141,11 +144,13 @@ module openram_testchip(
 	wire ram0_csb0;
 	wire ram0_web0;
 	wire [`ADDR_SIZE-1:0] ram0_addr0;
+  assign ram0_addr0[`ADDR_SIZE-1:$clog2(1024)] = 0;
 	wire [`DATA_SIZE-1:0] ram0_din0;
 	// PORT R
 	wire ram0_clk1;
 	wire ram0_csb1;
 	wire [`ADDR_SIZE-1:0] ram0_addr1;
+  assign ram0_addr1[`ADDR_SIZE-1:$clog2(1024)] = 0;
 // wires connecting sram1 wrapper to sram1 macro
 	// PORT RW
 	wire ram1_clk0;
@@ -153,11 +158,13 @@ module openram_testchip(
 	wire ram1_web0;
 	wire [`WMASK_SIZE-1:0] ram1_wmask0;
 	wire [`ADDR_SIZE-1:0] ram1_addr0;
+  assign ram1_addr0[`ADDR_SIZE-1:$clog2(256)] = 0;
 	wire [`DATA_SIZE-1:0] ram1_din0;
 	// PORT R
 	wire ram1_clk1;
 	wire ram1_csb1;
 	wire [`ADDR_SIZE-1:0] ram1_addr1;
+  assign ram1_addr1[`ADDR_SIZE-1:$clog2(256)] = 0;
 // wires connecting sram2 wrapper to sram2 macro
 	// PORT RW
 	wire ram2_clk0;
@@ -165,11 +172,13 @@ module openram_testchip(
 	wire ram2_web0;
 	wire [`WMASK_SIZE-1:0] ram2_wmask0;
 	wire [`ADDR_SIZE-1:0] ram2_addr0;
+  assign ram2_addr0[`ADDR_SIZE-1:$clog2(512)] = 0;
 	wire [`DATA_SIZE-1:0] ram2_din0;
 	// PORT R
 	wire ram2_clk1;
 	wire ram2_csb1;
 	wire [`ADDR_SIZE-1:0] ram2_addr1;
+  assign ram2_addr1[`ADDR_SIZE-1:$clog2(512)] = 0;
 // wires connecting sram3 wrapper to sram3 macro
 	// PORT RW
 	wire ram3_clk0;
@@ -177,11 +186,13 @@ module openram_testchip(
 	wire ram3_web0;
 	wire [`WMASK_SIZE-1:0] ram3_wmask0;
 	wire [`ADDR_SIZE-1:0] ram3_addr0;
+  assign ram3_addr0[`ADDR_SIZE-1:$clog2(512)] = 0;
 	wire [`DATA_SIZE-1:0] ram3_din0;
 	// PORT R
 	wire ram3_clk1;
 	wire ram3_csb1;
 	wire [`ADDR_SIZE-1:0] ram3_addr1;
+  assign ram3_addr1[`ADDR_SIZE-1:$clog2(512)] = 0;
 // wires connecting sram4 wrapper to sram4 macro
 	// PORT RW
 	wire ram4_clk0;
@@ -189,11 +200,13 @@ module openram_testchip(
 	wire ram4_web0;
 	wire [`WMASK_SIZE-1:0] ram4_wmask0;
 	wire [`ADDR_SIZE-1:0] ram4_addr0;
+  assign ram4_addr0[`ADDR_SIZE-1:$clog2(1024)] = 0;
 	wire [`DATA_SIZE-1:0] ram4_din0;
 	// PORT R
 	wire ram4_clk1;
 	wire ram4_csb1;
 	wire [`ADDR_SIZE-1:0] ram4_addr1;
+  assign ram4_addr1[`ADDR_SIZE-1:$clog2(1024)] = 0;
 // wires connecting sram5 wrapper to sram5 macro
 	// PORT RW
 	wire ram5_clk0;
@@ -201,11 +214,13 @@ module openram_testchip(
 	wire ram5_web0;
 	wire [`WMASK_SIZE-1:0] ram5_wmask0;
 	wire [`ADDR_SIZE-1:0] ram5_addr0;
+  assign ram5_addr0[`ADDR_SIZE-1:$clog2(512)] = 0;
 	wire [`DATA_SIZE-1:0] ram5_din0;
 	// PORT R
 	wire ram5_clk1;
 	wire ram5_csb1;
 	wire [`ADDR_SIZE-1:0] ram5_addr1;
+  assign ram5_addr1[`ADDR_SIZE-1:$clog2(512)] = 0;
 // wires connecting sram6 wrapper to sram6 macro
 	// PORT RW
 	wire ram6_clk0;
@@ -213,11 +228,13 @@ module openram_testchip(
 	wire ram6_web0;
 	wire [`WMASK_SIZE-1:0] ram6_wmask0;
 	wire [`ADDR_SIZE-1:0] ram6_addr0;
+  assign ram6_addr0[`ADDR_SIZE-1:$clog2(1024)] = 0;
 	wire [`DATA_SIZE-1:0] ram6_din0;
 	// PORT R
 	wire ram6_clk1;
 	wire ram6_csb1;
 	wire [`ADDR_SIZE-1:0] ram6_addr1;
+  assign ram6_addr1[`ADDR_SIZE-1:$clog2(1024)] = 0;
 // wires connecting between mux & sram8
 	wire wbs_or8_stb;
 	wire wbs_or8_cyc;
@@ -416,7 +433,7 @@ end
     	.wbs_or6_dat_o(wbs_or6_dat_o)
 	);
 
-	wishbone_wrapper SRAM8_WRAPPER(
+	wishbone_wrapper #(.NO_OF_ROWS(512)) SRAM8_WRAPPER(
     	.wb_clk_i(wb_clk_i),
     	.wb_rst_i(wb_rst_i),
     	.wbs_stb_i(wbs_or8_stb),
@@ -432,12 +449,12 @@ end
     	.ram_csb0(ram8_csb0),       // (output) active low chip select
     	.ram_web0(ram8_web0),       // (output) active low write control
     	.ram_wmask0(ram8_wmask0),   // (output) write (byte) mask
-    	.ram_addr0(ram8_addr0),	   // (output)
+    	.ram_addr0(ram8_addr0[$clog2(512)-1:0]),	   // (output)
     	.ram_din0(wbs_sram8_data),	   // (input) read from sram and sent through wb 
     	.ram_dout0(ram8_din0)	   // (output) read from wb and sent to sram
 	);
 
-	wishbone_wrapper SRAM9_WRAPPER(
+	wishbone_wrapper #(.NO_OF_ROWS(1024)) SRAM9_WRAPPER(
     	.wb_clk_i(wb_clk_i),
     	.wb_rst_i(wb_rst_i),
     	.wbs_stb_i(wbs_or9_stb),
@@ -453,12 +470,12 @@ end
     	.ram_csb0(ram9_csb0),       // (output) active low chip select
     	.ram_web0(ram9_web0),       // (output) active low write control
     	.ram_wmask0(ram9_wmask0),   // (output) write (byte) mask
-    	.ram_addr0(ram9_addr0),	   // (output)
+    	.ram_addr0(ram9_addr0[$clog2(1024)-1:0]),	   // (output)
     	.ram_din0(wbs_sram9_data),	   // (input) read from sram and sent through wb 
     	.ram_dout0(ram9_din0)	   // (output) read from wb and sent to sram
 	);
 
-	wishbone_wrapper SRAM10_WRAPPER(
+	wishbone_wrapper #(.NO_OF_ROWS(1024)) SRAM10_WRAPPER(
     	.wb_clk_i(wb_clk_i),
     	.wb_rst_i(wb_rst_i),
     	.wbs_stb_i(wbs_or10_stb),
@@ -474,7 +491,7 @@ end
     	.ram_csb0(ram10_csb0),     		// (output) active low chip select
     	.ram_web0(ram10_web0),     		// (output) active low write control
     	.ram_wmask0(ram10_wmask0), 		// (output) (byte) mask from wb sent to sram
-    	.ram_addr0(ram10_addr0),   		// (output) addr from wb sent to sram
+    	.ram_addr0(ram10_addr0[$clog2(1024)-1:0]),	   // (output)
     	.ram_din0(wbs_sram10_data),		// (input) read from sram and sent to wb 
     	.ram_dout0(ram10_din0)	   		// (output) for writing into the sram through wb
 	);
@@ -496,13 +513,13 @@ end
     	.ram_csb0(ram0_csb0),       	// (output) active low chip select
     	.ram_web0(ram0_web0),       	// (output) active low write control
     	.ram_wmask0(),   			// (output) (byte) mask from wb sent to sram
-    	.ram_addr0(ram0_addr0),	   		// (output) addr from wb sent to sram
+    	.ram_addr0(ram0_addr0[$clog2(1024)-1:0]),	   // (output)
     	.ram_din0(wbs_sram0_data0),	   	// (input) read from sram and sent to wb 
     	.ram_dout0(ram0_din0),	   		// (output) for writing into the sram through wb
 		// PORT R
     	.ram_clk1(ram0_clk1),       	// (output) clock
     	.ram_csb1(ram0_csb1),       	// (output) active low chip select
-    	.ram_addr1(ram0_addr1),	   		// (output) addr from wb sent to sram
+    	.ram_addr1(ram0_addr1[$clog2(1024)-1:0]),	   // (output)
     	.ram_din1(wbs_sram0_data1)	   	// (input) read from sram and sent to wb 
 	);
 
@@ -523,13 +540,13 @@ end
     	.ram_csb0(ram1_csb0),     		// (output) active low chip select                
     	.ram_web0(ram1_web0),     		// (output) active low write control              
     	.ram_wmask0(ram1_wmask0), 		// (output) (byte) mask from wb sent to sram      
-    	.ram_addr0(ram1_addr0),	  		// (output) addr from wb sent to sram            
+    	.ram_addr0(ram1_addr0[$clog2(256)-1:0]),	   // (output)
     	.ram_din0(wbs_sram1_data0),		// (input) read from sram and sent to wb        	
     	.ram_dout0(ram1_din0),	  		// (output) for writing into the sram through wb
 		// PORT R
     	.ram_clk1(ram1_clk1),       	// (output) clock
     	.ram_csb1(ram1_csb1),       	// (output) active low chip select
-    	.ram_addr1(ram1_addr1),	   		// (output) addr from wb sent to sram
+    	.ram_addr1(ram1_addr1[$clog2(256)-1:0]),	   // (output)
     	.ram_din1(wbs_sram1_data1)	   	// (input) read from sram and sent to wb 
 	);
 
@@ -550,13 +567,13 @@ end
     	.ram_csb0(ram2_csb0),       // (output) active low chip select
     	.ram_web0(ram2_web0),       // (output) active low write control
     	.ram_wmask0(ram2_wmask0),   // (output) write (byte) mask
-    	.ram_addr0(ram2_addr0),	   // (output)
+    	.ram_addr0(ram2_addr0[$clog2(512)-1:0]),	   // (output)
     	.ram_din0(wbs_sram2_data0),	   // (input) read from sram and sent through wb 
     	.ram_dout0(ram2_din0),	   // (output) read from wb and sent to sram
 		// PORT R
     	.ram_clk1(ram2_clk1),       	// (output) clock
     	.ram_csb1(ram2_csb1),       	// (output) active low chip select
-    	.ram_addr1(ram2_addr1),	   		// (output) addr from wb sent to sram
+    	.ram_addr1(ram2_addr1[$clog2(512)-1:0]),	   // (output)
     	.ram_din1(wbs_sram2_data1)	   	// (input) read from sram and sent to wb 
 	);
 
@@ -577,13 +594,13 @@ end
     	.ram_csb0(ram3_csb0),       // (output) active low chip select
     	.ram_web0(ram3_web0),       // (output) active low write control
     	.ram_wmask0(ram3_wmask0),   // (output) write (byte) mask
-    	.ram_addr0(ram3_addr0),	   // (output)
+    	.ram_addr0(ram3_addr0[$clog2(512)-1:0]),	   // (output)
     	.ram_din0(wbs_sram3_data0),	   // (input) read from sram and sent through wb 
     	.ram_dout0(ram3_din0),	   // (output) read from wb and sent to sram
 		// PORT R
     	.ram_clk1(ram3_clk1),       	// (output) clock
     	.ram_csb1(ram3_csb1),       	// (output) active low chip select
-    	.ram_addr1(ram3_addr1),	   		// (output) addr from wb sent to sram
+    	.ram_addr1(ram3_addr1[$clog2(512)-1:0]),	   // (output)
     	.ram_din1(wbs_sram3_data1)	   	// (input) read from sram and sent to wb 
 	);
 
@@ -604,13 +621,13 @@ end
     	.ram_csb0(ram4_csb0),       // (output) active low chip select
     	.ram_web0(ram4_web0),       // (output) active low write control
     	.ram_wmask0(ram4_wmask0),   // (output) write (byte) mask
-    	.ram_addr0(ram4_addr0),	   // (output)
+    	.ram_addr0(ram4_addr0[$clog2(1024)-1:0]),	   // (output)
     	.ram_din0(wbs_sram4_data0),	   // (input) read from sram and sent through wb 
     	.ram_dout0(ram4_din0),	   // (output) read from wb and sent to sram
 		// PORT R
     	.ram_clk1(ram4_clk1),       	// (output) clock
     	.ram_csb1(ram4_csb1),       	// (output) active low chip select
-    	.ram_addr1(ram4_addr1),	   		// (output) addr from wb sent to sram
+    	.ram_addr1(ram4_addr1[$clog2(1024)-1:0]),	   // (output)
     	.ram_din1(wbs_sram4_data1)	   	// (input) read from sram and sent to wb 
 	);
 
@@ -631,14 +648,14 @@ end
     	.ram_csb0(ram5_csb0),       // (output) active low chip select
     	.ram_web0(ram5_web0),       // (output) active low write control
     	.ram_wmask0(ram5_wmask0),   // (output) write (byte) mask
-    	.ram_addr0(ram5_addr0),	   // (output)
+    	.ram_addr0(ram5_addr0[$clog2(512)-1:0]),	   // (output)
     	.ram_din0(wbs_sram5_data0),	   // (input) read from sram and sent through wb 
     	.ram_dout0(ram5_din0),	   // (output) read from wb and sent to sram
 		// PORT R
     	.ram_clk1(ram5_clk1),       	// (output) clock
     	.ram_csb1(ram5_csb1),       	// (output) active low chip select
-    	.ram_addr1(ram5_addr1),	   		// (output) addr from wb sent to sram
-    	.ram_din1(wbs_sram5_data1)	   	// (input) read from sram and sent to wb 
+    	.ram_addr1(ram5_addr1[$clog2(512)-1:0]),	// (output) addr from wb sent to sram
+      .ram_din1(wbs_sram5_data1)	   	// (input) read from sram and sent to wb 
 	);
 
 	wishbone_wrapper_dp #(.NO_OF_ROWS(1024)) SRAM6_WRAPPER(
@@ -658,13 +675,13 @@ end
     	.ram_csb0(ram6_csb0),       // (output) active low chip select
     	.ram_web0(ram6_web0),       // (output) active low write control
     	.ram_wmask0(ram6_wmask0),   // (output) write (byte) mask
-    	.ram_addr0(ram6_addr0),	   // (output)
+    	.ram_addr0(ram6_addr0[$clog2(1024)-1:0]),	   // (output)
     	.ram_din0(wbs_sram6_data0),	   // (input) read from sram and sent through wb 
     	.ram_dout0(ram6_din0),	   // (output) read from wb and sent to sram
 		// PORT R
     	.ram_clk1(ram6_clk1),       	// (output) clock
     	.ram_csb1(ram6_csb1),       	// (output) active low chip select
-    	.ram_addr1(ram6_addr1),	   		// (output) addr from wb sent to sram
+    	.ram_addr1(ram6_addr1[$clog2(1024)-1:0]),	   // (output)
     	.ram_din1(wbs_sram6_data1)	   	// (input) read from sram and sent to wb 
 	);
 // Splitting register bits into fields

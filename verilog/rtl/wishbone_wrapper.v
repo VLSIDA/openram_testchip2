@@ -1,6 +1,9 @@
 `default_nettype none
 
 module wishbone_wrapper
+#(
+    parameter NO_OF_ROWS = 0
+)
 (
 	`ifdef USE_POWER_PINS
 	    inout vccd1,	// User area 1 1.8V supply
@@ -25,7 +28,7 @@ module wishbone_wrapper
     output                      ram_csb0,       // active low chip select
     output                      ram_web0,       // active low write control
     output  [3:0]              	ram_wmask0,     // write (byte) mask
-    output  [13:0]    			ram_addr0,
+    output  [$clog2(NO_OF_ROWS)-1:0]  ram_addr0,
     input   [31:0]              ram_din0,
     output  [31:0]              ram_dout0
 
@@ -55,7 +58,7 @@ module wishbone_wrapper
 	assign ram_csb0 = !ram_cs_r;
 	assign ram_web0 = ~wbs_we_i;
 	assign ram_wmask0 = wbs_sel_i;
-	assign ram_addr0 = wbs_adr_i[15:2];
+	assign ram_addr0 = wbs_adr_i[$clog2(NO_OF_ROWS)+1:2];
 	assign ram_dout0 = wbs_dat_i;
 	
 	assign wbs_dat_o = ram_din0;
