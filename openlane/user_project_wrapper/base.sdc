@@ -1,7 +1,7 @@
 ## Clock configurations
-set ::env(CLOCK_PORT) "io_in\[3\]"
+set ::env(CLOCK_PORT) "io_in\[6\]"
 set ::env(CLOCK_NET) "CONTROL_LOGIC.clk"
-set ::env(RESET_PORT) "io_in\[2\]"
+set ::env(RESET_PORT) "io_in\[5\]"
 
 set ::env(CLOCK_PERIOD) "30"
 
