@@ -31,7 +31,11 @@
 			"dir::../../lef/sky130_sram_1kbyte_1rw_32x256_8.lef",
 			"dir::../../lef/sky130_sram_2kbyte_1rw_32x512_8.lef",
 			"dir::../../lef/rram_test.lef"],
-    "EXTRA_LIBS": ["dir::../../lib/sky130_sram_1kbytes_1rw1r_32x256_8_TT_1p8V_25C.lib"],
+    "EXTRA_LIBS": ["dir::../../lib/sky130_sram_1kbyte_1rw1r_8x1024_8_TT_1p8V_25C.lib",
+      "dir::../../lib/sky130_sram_1kbyte_1rw1r_32x256_8_TT_1p8V_25C.lib",
+      "dir::../../lib/sky130_sram_1kbyte_1rw_32x256_8_TT_1p8V_25C.lib",
+      "dir::../../lib/sky130_sram_2kbyte_1rw1r_32x512_8_TT_1p8V_25C.lib",
+      "dir::../../lib/sky130_sram_2kbyte_1rw_32x512_8_TT_1p8V_25C.lib"],
     "EXTRA_GDS_FILES": [
 		    "dir::../../gds/sky130_sram_1kbyte_1rw1r_32x256_8.gds", 
 		    "dir::../../gds/sky130_sram_1kbyte_1rw1r_8x1024_8.gds",  
