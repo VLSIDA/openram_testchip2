@@ -3,7 +3,7 @@ set ::env(CLOCK_PORT) "io_in\[6\]"
 set ::env(CLOCK_NET) "CONTROL_LOGIC.clk"
 set ::env(RESET_PORT) "io_in\[5\]"
 
-set ::env(CLOCK_PERIOD) "30"
+set ::env(CLOCK_PERIOD) "40"
 
 set ::env(IO_PCT) 0.2
 set ::env(SYNTH_DRIVING_CELL) "sky130_fd_sc_hd__inv_1"

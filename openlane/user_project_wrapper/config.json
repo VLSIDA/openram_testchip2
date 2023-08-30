@@ -9,7 +9,7 @@
 		"dir::../../verilog/rtl/wishbone_ram_mux.v",
 		"dir::../../verilog/rtl/openram_testchip.v"],
     "BASE_SDC_FILE": "dir::base.sdc",
-    "CLOCK_PERIOD": 30,
+    "CLOCK_PERIOD": 40,
     "CLOCK_PORT": "io_in[6]",
     "CLOCK_NET": "CONTROL_LOGIC.clk",
     "RSZ_DONT_TOUCH_RX": "analog_io.*",
