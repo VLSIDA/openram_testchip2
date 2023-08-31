@@ -29,21 +29,21 @@ module sky130_rom_1kbyte_8x1024(
   input clk; // clock
   input wire  cs; // active high chip select
   input wire [ADDR_WIDTH-1:0]  addr;
-  output wire [DATA_WIDTH-1:0] dout;
+  output reg [DATA_WIDTH-1:0] dout;
 
   reg [DATA_WIDTH-1:0]    mem [0:ROM_DEPTH-1];
 
   initial begin
-    $readmemb("./sky130_rom_1kbyte_8x1024.bin",mem,0,ROM_DEPTH-1);
+    $readmemh("./sky130_rom_1kbyte_8x1024.hex",mem,0,ROM_DEPTH-1);
   end
 
   // reg  cs_reg;
   // reg [ADDR_WIDTH-1:0]  addr_reg;
-  wire [DATA_WIDTH-1:0]  dout;
+  //wire [DATA_WIDTH-1:0]  dout;
 
   always @(posedge clk)
   begin : MEM_READ0
-    #(T_HOLD) dout = 8'bx;
+    #(T_HOLD) dout <= 8'bx;
     if ( cs && VERBOSE )
       $display($time," Reading %m addr=%b dout=%b",addr,mem[addr]);
 
