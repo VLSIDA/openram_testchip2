@@ -165,51 +165,52 @@ module gpio_test_tb;
 
 	   #50;
 
-		//Testing 32B Dual Port Memories
-		for(i = 0; i < 7; i = i + 1) begin
-		   // write 1 to address 1
-		   write_sram(
-				  i,
-			      1'b0,
-			      1'b0,
-			      16'd1,
-			      i,
-			      1'b1,
-			      1'b1,
-			      16'd0,
-			      32'd0);
+		//Testing all memories
+		for(i = 0; i < 11; i = i + 1) begin
+      // sram 0-6 and 9 are dual port memories
+      // sram 7 does not exist
+      // sram 8 and 10 are single port memories
+      if (i < 7 || i == 9) begin
+		    //Testing 32B Dual Port Memories
+		     // write 1 to address 1
+		     write_sram(
+			  	  i,
+			        1'b0,
+			        1'b0,
+			        16'd1,
+			        i,
+			        1'b1,
+			        1'b1,
+			        16'd0,
+			        32'd0);
 
-		   // write i*2^3 to address 2
-		   write_sram(
-				  i,
-			      1'b0,
-			      1'b0,
-			      16'd2,
-			      i<<3,
-			      1'b1,
-			      1'b1,
-			      16'd0,
-			      32'd0);
+		     // write i*2^3 to address 2
+		     write_sram(
+			  	  i,
+			        1'b0,
+			        1'b0,
+			        16'd2,
+			        i<<3,
+			        1'b1,
+			        1'b1,
+			        16'd0,
+			        32'd0);
 
-		   // read address 1 and 2
-		   read_sram(
-				 i,
-			     1'b0,
-			     1'b1,
-			     16'd1,
-			     i,
-			     1'b0,
-			     1'b1,
-			     16'd2,
-			     i<<3);
+		     // read address 1 and 2
+		     read_sram(
+			  	 i,
+			       1'b0,
+			       1'b1,
+			       16'd1,
+			       i,
+			       1'b0,
+			       1'b1,
+			       16'd2,
+			       i<<3);
 
-
-
-		end
-
-		//Testing 32B Single Port Memories
-		for(i = 8; i < 11; i = i + 1) begin
-
+           end else if (i > 7 && i != 9) begin
+        // for sram 8 and 10 
+		    //Testing 32B Single Port Memories
 		   // write 1 to address 1
 		   write_sram(i,
 			      1'b0,
@@ -231,8 +232,10 @@ module gpio_test_tb;
 			     1'b1,
 			     16'd0,
 			     32'd0);
+          end
 
 		end
+
 
 		done = 1;
 		

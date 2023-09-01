@@ -31,10 +31,6 @@
 #define SRAM8_MEM(offset)		(*(volatile uint32_t*)(SRAM8_BASE_ADDRESS + offset))
 
 #define SRAM9_BASE_ADDRESS		0x30010000
-#define SRAM9_SIZE_DWORDS		512ul			
-#define SRAM9_SIZE_BYTES		(4ul * SRAM9_SIZE_DWORDS)
-#define SRAM9_ADDRESS_MASK		(SRAM9_SIZE_BYTES - 1)
-//#define SRAM9_MEM(offset)		(*(volatile uint32_t*)(SRAM9_BASE_ADDRESS + (offset & SRAM9_ADDRESS_MASK)))
 #define SRAM9_MEM(offset)		(*(volatile uint32_t*)(SRAM9_BASE_ADDRESS + offset ))
 
 #define SRAM10_BASE_ADDRESS		0x30020000
@@ -129,7 +125,7 @@ void main()
 	SRAM5_MEM(0) = 0xdeeddeed;
 	SRAM6_MEM(0) = 0xdeadcafe;
 	SRAM8_MEM(0) = 0xdeadbeef;
-	SRAM9_MEM(0) = 0xbeefdead;
+	SRAM9_MEM(0) = 0x000000ad;
 	SRAM10_MEM(0) = 0xbeef1234;
 
 	SRAM0_MEM(4) = 0x000000fe;		// 8 bit word
@@ -140,7 +136,7 @@ void main()
 	SRAM5_MEM(4) = 0xbeedbeed;
 	SRAM6_MEM(4) = 0xcafedead;
 	SRAM8_MEM(4) = 0xdeadbee0;
-	SRAM9_MEM(4) = 0xbee0dead;
+	SRAM9_MEM(4) = 0x000000ab;
 	SRAM10_MEM(4) = 0xbee1dead;
 
 	SRAM0_MEM(8) = 0x000000ab;		// 8 bit word
@@ -151,7 +147,7 @@ void main()
 	SRAM5_MEM(8) = 0xbedbedbe;
 	SRAM6_MEM(8) = 0xdeadbaba;
 	SRAM8_MEM(8) = 0xffffffff;
-	SRAM9_MEM(8) = 0x12345678;
+	SRAM9_MEM(8) = 0x00000011;
 	SRAM10_MEM(8) = 0xabababab;
 
 	SRAM0_MEM(2048) = 0x000000bb;		// 8 bit word
@@ -162,7 +158,7 @@ void main()
 	SRAM5_MEM(12) = 0xdeeddddd;
 	SRAM6_MEM(12) = 0xdeaddddd;
 	SRAM8_MEM(12) = 0xdeaddead;
-	SRAM9_MEM(12) = 0x10101010;
+	SRAM9_MEM(12) = 0x00000022;
 	SRAM10_MEM(12) = 0x20202020;
 
 	if (SRAM0_MEM(0) != 0x000000ef) {
@@ -334,22 +330,22 @@ void main()
 	}
 
 
-	if (SRAM9_MEM(0) != 0xbeefdead) {
+	if (SRAM9_MEM(0) != 0x000000ad) {
 		// send an error signal to the testbench
 		reg_mprj_datal = 0x00000003;
 		reg_mprj_datal = 0x00000002;
 	}
-	if (SRAM9_MEM(4) != 0xbee0dead) {
+	if (SRAM9_MEM(4) != 0x000000ab) {
 		// send an error signal to the testbench
 		reg_mprj_datal = 0x00000003;
 		reg_mprj_datal = 0x00000002;
 	}
-	if (SRAM9_MEM(8) != 0x12345678) {
+	if (SRAM9_MEM(8) != 0x00000011) {
 		// send an error signal to the testbench
 		reg_mprj_datal = 0x00000003;
 		reg_mprj_datal = 0x00000002;
 	}
-	if (SRAM9_MEM(12) != 0x10101010) {
+	if (SRAM9_MEM(12) != 0x00000022) {
 		// send an error signal to the testbench
 		reg_mprj_datal = 0x00000003;
 		reg_mprj_datal = 0x00000002;

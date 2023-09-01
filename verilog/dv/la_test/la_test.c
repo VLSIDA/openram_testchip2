@@ -267,8 +267,8 @@ void main()
 	read_sp_sram(8);
 
 	// SRAM 9
-	write_sp_sram(9);
-	read_sp_sram(9);
+	write_dp_sram(9);
+	read_dp_sram(9);
 
     // SRAM 10
 	write_sp_sram(10);
