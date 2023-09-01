@@ -119,7 +119,7 @@ parameter SRAM8_BASE_ADDR = 32'h3000_0000;
 parameter SRAM8_MASK = 32'hffff_fc00;
 
 parameter SRAM9_BASE_ADDR = 32'h3001_0000;
-parameter SRAM9_MASK = 32'hffff_f800;
+parameter SRAM9_MASK = 32'hffff_f000;
 
 parameter SRAM10_BASE_ADDR = 32'h3002_0000;
 parameter SRAM10_MASK = 32'hffff_f800;

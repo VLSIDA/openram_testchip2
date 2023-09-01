@@ -31,7 +31,8 @@ module openram_testchip(
     		input [31:0] wbs_dat_i,
     		input [31:0] wbs_adr_i,
 			input  [`DATA_SIZE-1:0] wbs_sram8_data,
-			input  [`DATA_SIZE-1:0] wbs_sram9_data,
+			input  [`DATA_SIZE-1:0] wbs_sram9_data0,
+			input  [`DATA_SIZE-1:0] wbs_sram9_data1,
 			input  [`DATA_SIZE-1:0] wbs_sram10_data,
 			input  [`DATA_SIZE-1:0] wbs_sram0_data0,
 			input  [`DATA_SIZE-1:0] wbs_sram0_data1,
@@ -123,13 +124,18 @@ module openram_testchip(
   assign ram8_addr0[`ADDR_SIZE-1:$clog2(512)] = 0;
 	wire [`DATA_SIZE-1:0] ram8_din0;
 // wires connecting sram9 wrapper to sram9 macro
+    // PORT RW
 	wire ram9_clk0;
 	wire ram9_csb0;
 	wire ram9_web0;
-	wire [`WMASK_SIZE-1:0] ram9_wmask0;
 	wire [`ADDR_SIZE-1:0] ram9_addr0;
   assign ram9_addr0[`ADDR_SIZE-1:$clog2(1024)] = 0;
 	wire [`DATA_SIZE-1:0] ram9_din0;
+	// PORT R
+	wire ram9_clk1;
+	wire ram9_csb1;
+	wire [`ADDR_SIZE-1:0] ram9_addr1;
+  assign ram9_addr1[`ADDR_SIZE-1:$clog2(1024)] = 0;
 // wires connecting sram10 wrapper to sram10 macro
 	wire ram10_clk0;
 	wire ram10_csb0;
@@ -454,7 +460,7 @@ end
     	.ram_dout0(ram8_din0)	   // (output) read from wb and sent to sram
 	);
 
-	wishbone_wrapper #(.NO_OF_ROWS(1024)) SRAM9_WRAPPER(
+	wishbone_wrapper_dp #(.NO_OF_ROWS(1024)) SRAM9_WRAPPER(
     	.wb_clk_i(wb_clk_i),
     	.wb_rst_i(wb_rst_i),
     	.wbs_stb_i(wbs_or9_stb),
@@ -466,13 +472,19 @@ end
     	.wbs_ack_o(wbs_or9_ack),
     	.wbs_dat_o(wbs_or9_dat_i),
 		// OpenRAM interface
+    // PORT RW
     	.ram_clk0(ram9_clk0),       // (output) clock
     	.ram_csb0(ram9_csb0),       // (output) active low chip select
     	.ram_web0(ram9_web0),       // (output) active low write control
-    	.ram_wmask0(ram9_wmask0),   // (output) write (byte) mask
+    	.ram_wmask0(),   // (output) write (byte) mask
     	.ram_addr0(ram9_addr0[$clog2(1024)-1:0]),	   // (output)
-    	.ram_din0(wbs_sram9_data),	   // (input) read from sram and sent through wb 
-    	.ram_dout0(ram9_din0)	   // (output) read from wb and sent to sram
+    	.ram_din0(wbs_sram9_data0),	   // (input) read from sram and sent through wb 
+    	.ram_dout0(ram9_din0),	   // (output) read from wb and sent to sram
+		// PORT R
+    	.ram_clk1(ram9_clk1),       	// (output) clock
+    	.ram_csb1(ram9_csb1),       	// (output) active low chip select
+    	.ram_addr1(ram9_addr1[$clog2(1024)-1:0]),	   // (output)
+    	.ram_din1(wbs_sram9_data1)	   	// (input) read from sram and sent to wb 
 	);
 
 	wishbone_wrapper #(.NO_OF_ROWS(1024)) SRAM10_WRAPPER(
@@ -713,13 +725,13 @@ always @(*) begin
    				addr0 = ram9_addr0;
    				din0 = ram9_din0;
    				web0 = ram9_web0;
-   				wmask0 = ram9_wmask0;
-				// dont cares since sp sram
-   				addr1 = sram_register[`PORT_SIZE-1:`DATA_SIZE+`WMASK_SIZE+2];
-   				din1 = sram_register[`DATA_SIZE+`WMASK_SIZE+1:`WMASK_SIZE+2];
-   				csb1_temp = global_csb | sram_register[`WMASK_SIZE+1];
-   				web1 = sram_register[`WMASK_SIZE];
-   				wmask1 = sram_register[`WMASK_SIZE-1:0];
+   				wmask0 = 'd0;
+          // PORT R
+   				addr1 = ram9_addr1;
+   				din1 = sram_register[`DATA_SIZE+`WMASK_SIZE+1:`WMASK_SIZE+2]; // dont care since we never write from port1 on any sram
+   				csb1_temp = ram9_csb1; 
+   				web1 = sram_register[`WMASK_SIZE];			// dont care since we never write from port1 on any sram
+   				wmask1 = sram_register[`WMASK_SIZE-1:0];    // dont care since we never write from port1 on any sram
 			end
 
 			else if(wbs_or10_stb) begin
