@@ -20,6 +20,8 @@
 -v $(USER_PROJECT_VERILOG)/rtl/wishbone_ram_mux.v	     
 -v $(USER_PROJECT_VERILOG)/rtl/wishbone_wrapper.v	     
 -v $(USER_PROJECT_VERILOG)/rtl/wishbone_wrapper_dp.v	     
+-v $(USER_PROJECT_VERILOG)/rtl/rom_wrapper.v	     
+-v $(USER_PROJECT_VERILOG)/rtl/sky130_rom_1kbyte_8x1024_tapeout.v
 -v $(USER_PROJECT_VERILOG)/rtl/rram_test.v
 -v $(USER_PROJECT_VERILOG)/rtl/sky130_sram_1kbyte_1rw1r_32x256_8.v	     
 -v $(USER_PROJECT_VERILOG)/rtl/sky130_sram_1kbyte_1rw1r_8x1024_8.v	     

@@ -61,6 +61,8 @@
 #define SRAM6_BASE_ADDRESS		0x30090000
 #define SRAM6_MEM(offset)		(*(volatile uint32_t*)(SRAM6_BASE_ADDRESS + offset ))
 
+#define ROM0_BASE_ADDRESS		0x300a0000
+#define ROM0_MEM(offset)		(*(volatile uint32_t*)(ROM0_BASE_ADDRESS + offset ))
 
 
 void main()
@@ -123,7 +125,7 @@ void main()
 	SRAM3_MEM(0) = 0xbeef5678;
 	SRAM4_MEM(0) = 0xbeef9abc;
 	SRAM5_MEM(0) = 0xdeeddeed;
-	SRAM6_MEM(0) = 0xdeadcafe;
+	// SRAM6_MEM(0) = 0xdeadcafe;
 	SRAM8_MEM(0) = 0xdeadbeef;
 	SRAM9_MEM(0) = 0x000000ad;
 	SRAM10_MEM(0) = 0xbeef1234;
@@ -134,7 +136,7 @@ void main()
 	SRAM3_MEM(4) = 0xbee2dead;
 	SRAM4_MEM(4) = 0xbee3dead;
 	SRAM5_MEM(4) = 0xbeedbeed;
-	SRAM6_MEM(4) = 0xcafedead;
+	// SRAM6_MEM(4) = 0xcafedead;
 	SRAM8_MEM(4) = 0xdeadbee0;
 	SRAM9_MEM(4) = 0x000000ab;
 	SRAM10_MEM(4) = 0xbee1dead;
@@ -145,7 +147,7 @@ void main()
 	SRAM3_MEM(8) = 0xcdcdcdcd;
 	SRAM4_MEM(8) = 0xefefefef;
 	SRAM5_MEM(8) = 0xbedbedbe;
-	SRAM6_MEM(8) = 0xdeadbaba;
+	// SRAM6_MEM(8) = 0xdeadbaba;
 	SRAM8_MEM(8) = 0xffffffff;
 	SRAM9_MEM(8) = 0x00000011;
 	SRAM10_MEM(8) = 0xabababab;
@@ -156,7 +158,7 @@ void main()
 	SRAM3_MEM(12) = 0x30303030;
 	SRAM4_MEM(12) = 0x40404040;
 	SRAM5_MEM(12) = 0xdeeddddd;
-	SRAM6_MEM(12) = 0xdeaddddd;
+	// SRAM6_MEM(12) = 0xdeaddddd;
 	SRAM8_MEM(12) = 0xdeaddead;
 	SRAM9_MEM(12) = 0x00000022;
 	SRAM10_MEM(12) = 0x20202020;
@@ -287,22 +289,38 @@ void main()
 		reg_mprj_datal = 0x00000002;
 	}
 
-	if (SRAM6_MEM(0) != 0xdeadcafe) {
+	// if (SRAM6_MEM(0) != 0xdeadcafe) {
+	// 	// send an error signal to the testbench
+	// 	reg_mprj_datal = 0x00000003;
+	// 	reg_mprj_datal = 0x00000002;
+	// }
+	// if (SRAM6_MEM(4) != 0xcafedead) {
+	// 	// send an error signal to the testbench
+	// 	reg_mprj_datal = 0x00000003;
+	// 	reg_mprj_datal = 0x00000002;
+	// }
+	// if (SRAM6_MEM(8) != 0xdeadbaba) {
+	// 	// send an error signal to the testbench
+	// 	reg_mprj_datal = 0x00000003;
+	// 	reg_mprj_datal = 0x00000002;
+	// }
+	// if (SRAM6_MEM(12) != 0xdeaddddd) {
+	// 	// send an error signal to the testbench
+	// 	reg_mprj_datal = 0x00000003;
+	// 	reg_mprj_datal = 0x00000002;
+	// }
+
+	if (ROM0_MEM(0) != 0x000000ff) {
 		// send an error signal to the testbench
 		reg_mprj_datal = 0x00000003;
 		reg_mprj_datal = 0x00000002;
 	}
-	if (SRAM6_MEM(4) != 0xcafedead) {
+	if (ROM0_MEM(4) != 0x000000ff) {
 		// send an error signal to the testbench
 		reg_mprj_datal = 0x00000003;
 		reg_mprj_datal = 0x00000002;
 	}
-	if (SRAM6_MEM(8) != 0xdeadbaba) {
-		// send an error signal to the testbench
-		reg_mprj_datal = 0x00000003;
-		reg_mprj_datal = 0x00000002;
-	}
-	if (SRAM6_MEM(12) != 0xdeaddddd) {
+	if (ROM0_MEM(8) != 0x000000ff) {
 		// send an error signal to the testbench
 		reg_mprj_datal = 0x00000003;
 		reg_mprj_datal = 0x00000002;

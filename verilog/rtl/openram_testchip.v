@@ -46,8 +46,7 @@ module openram_testchip(
 			input  [`DATA_SIZE-1:0] wbs_sram4_data1,
 			input  [`DATA_SIZE-1:0] wbs_sram5_data0,
 			input  [`DATA_SIZE-1:0] wbs_sram5_data1,
-			input  [`DATA_SIZE-1:0] wbs_sram6_data0,
-			input  [`DATA_SIZE-1:0] wbs_sram6_data1,
+			input  [`DATA_SIZE-1:0] wbs_rom0_data,
     		output wbs_ack_o,
     		output [31:0] wbs_dat_o,
 			// SRAM data outputs to be captured
@@ -63,6 +62,7 @@ module openram_testchip(
 			input  [`DATA_SIZE-1:0] sram4_data1,
 			input  [`DATA_SIZE-1:0] sram5_data0,
 			input  [`DATA_SIZE-1:0] sram5_data1,
+			input  [`DATA_SIZE-1:0] rom0_data,
 			input  [`DATA_SIZE-1:0] sram6_data0,
 			input  [`DATA_SIZE-1:0] sram6_data1,
 			input  [`DATA_SIZE-1:0] sram7_data0,
@@ -234,13 +234,19 @@ module openram_testchip(
 	wire ram6_web0;
 	wire [`WMASK_SIZE-1:0] ram6_wmask0;
 	wire [`ADDR_SIZE-1:0] ram6_addr0;
-  assign ram6_addr0[`ADDR_SIZE-1:$clog2(1024)] = 0;
+  assign ram6_addr0[`ADDR_SIZE-1:$clog2(512)] = 0;
 	wire [`DATA_SIZE-1:0] ram6_din0;
 	// PORT R
 	wire ram6_clk1;
 	wire ram6_csb1;
 	wire [`ADDR_SIZE-1:0] ram6_addr1;
-  assign ram6_addr1[`ADDR_SIZE-1:$clog2(1024)] = 0;
+  assign ram6_addr1[`ADDR_SIZE-1:$clog2(512)] = 0;
+// wires connecting rom0 wb wrapper to rom0 macro
+	// PORT R
+	wire rom0_clk;
+	wire rom0_csb;
+	wire [`ADDR_SIZE-1:0] rom0_addr;
+  assign rom0_addr[`ADDR_SIZE-1:$clog2(1024)] = 0;
 // wires connecting between mux & sram8
 	wire wbs_or8_stb;
 	wire wbs_or8_cyc;
@@ -321,6 +327,13 @@ module openram_testchip(
 	wire [31:0] wbs_or6_dat_i;
 	wire wbs_or6_ack;
 	wire [31:0] wbs_or6_dat_o;
+// wires connecting between mux & rom0
+	wire wbs_rom0_stb;
+	wire wbs_rom0_cyc;
+	wire wbs_rom0_we;
+	wire [3:0] wbs_rom0_sel;
+	wire [31:0] wbs_rom0_dat_i;
+	wire wbs_rom0_ack;
 
 always @ (posedge clk) begin
    if(!resetn) begin
@@ -436,7 +449,13 @@ end
     	.wbs_or6_sel_o(wbs_or6_sel),
     	.wbs_or6_dat_i(wbs_or6_dat_i),
     	.wbs_or6_ack_i(wbs_or6_ack),
-    	.wbs_or6_dat_o(wbs_or6_dat_o)
+    	.wbs_or6_dat_o(wbs_or6_dat_o),
+		// wishbone signals to rom 0
+    	.wbs_rom0_stb_o(wbs_rom0_stb),
+    	.wbs_rom0_cyc_o(wbs_rom0_cyc),
+    	.wbs_rom0_sel_o(wbs_rom0_sel),
+    	.wbs_rom0_dat_i(wbs_rom0_dat_i),
+    	.wbs_rom0_ack_i(wbs_rom0_ack)
 	);
 
 	wishbone_wrapper #(.NO_OF_ROWS(512)) SRAM8_WRAPPER(
@@ -670,32 +689,53 @@ end
       .ram_din1(wbs_sram5_data1)	   	// (input) read from sram and sent to wb 
 	);
 
-	wishbone_wrapper_dp #(.NO_OF_ROWS(1024)) SRAM6_WRAPPER(
+	wishbone_wrapper #(.NO_OF_ROWS(1024)) ROM0_WRAPPER (
     	.wb_clk_i(wb_clk_i),
     	.wb_rst_i(wb_rst_i),
-    	.wbs_stb_i(wbs_or6_stb),
-    	.wbs_cyc_i(wbs_or6_cyc),
-    	.wbs_we_i(wbs_or6_we),
-    	.wbs_sel_i(wbs_or6_sel),
-    	.wbs_dat_i(wbs_or6_dat_o),
+    	.wbs_stb_i(wbs_rom0_stb),
+    	.wbs_cyc_i(wbs_rom0_cyc),
+    	.wbs_we_i(1'b0),             // nothing to write since ROM
+    	.wbs_sel_i(wbs_rom0_sel),
+    	.wbs_dat_i('d0),            // nothing to write since ROM
     	.wbs_adr_i(wbs_adr_i),
-    	.wbs_ack_o(wbs_or6_ack),
-    	.wbs_dat_o(wbs_or6_dat_i),
+    	.wbs_ack_o(wbs_rom0_ack),
+    	.wbs_dat_o(wbs_rom0_dat_i),
 		// OpenRAM interface
-		// PORT RW
-    	.ram_clk0(ram6_clk0),       // (output) clock
-    	.ram_csb0(ram6_csb0),       // (output) active low chip select
-    	.ram_web0(ram6_web0),       // (output) active low write control
-    	.ram_wmask0(ram6_wmask0),   // (output) write (byte) mask
-    	.ram_addr0(ram6_addr0[$clog2(1024)-1:0]),	   // (output)
-    	.ram_din0(wbs_sram6_data0),	   // (input) read from sram and sent through wb 
-    	.ram_dout0(ram6_din0),	   // (output) read from wb and sent to sram
-		// PORT R
-    	.ram_clk1(ram6_clk1),       	// (output) clock
-    	.ram_csb1(ram6_csb1),       	// (output) active low chip select
-    	.ram_addr1(ram6_addr1[$clog2(1024)-1:0]),	   // (output)
-    	.ram_din1(wbs_sram6_data1)	   	// (input) read from sram and sent to wb 
+    	.ram_clk0(rom0_clk),       // (output) clock
+    	.ram_csb0(rom0_csb),       // (output) active low chip select
+    	.ram_web0(),       // (output) active low write control
+    	.ram_wmask0(),   // (output) write (byte) mask
+    	.ram_addr0(rom0_addr[$clog2(1024)-1:0]),	   // (output)
+    	.ram_din0(wbs_rom0_data),	   // (input) read from sram and sent through wb 
+    	.ram_dout0()	   // (output) read from wb and sent to sram
 	);
+
+  //wishbone_wrapper_dp #(.NO_OF_ROWS(1024)) SRAM6_WRAPPER(
+  //  	.wb_clk_i(wb_clk_i),
+  //  	.wb_rst_i(wb_rst_i),
+  //  	.wbs_stb_i(wbs_or6_stb),
+  //  	.wbs_cyc_i(wbs_or6_cyc),
+  //  	.wbs_we_i(wbs_or6_we),
+  //  	.wbs_sel_i(wbs_or6_sel),
+  //  	.wbs_dat_i(wbs_or6_dat_o),
+  //  	.wbs_adr_i(wbs_adr_i),
+  //  	.wbs_ack_o(wbs_or6_ack),
+  //  	.wbs_dat_o(wbs_or6_dat_i),
+	//	// OpenRAM interface
+	//	// PORT RW
+  //  	.ram_clk0(ram6_clk0),       // (output) clock
+  //  	.ram_csb0(ram6_csb0),       // (output) active low chip select
+  //  	.ram_web0(ram6_web0),       // (output) active low write control
+  //  	.ram_wmask0(ram6_wmask0),   // (output) write (byte) mask
+  //  	.ram_addr0(ram6_addr0[$clog2(1024)-1:0]),	   // (output)
+  //  	.ram_din0(wbs_sram6_data0),	   // (input) read from sram and sent through wb 
+  //  	.ram_dout0(ram6_din0),	   // (output) read from wb and sent to sram
+	//	// PORT R
+  //  	.ram_clk1(ram6_clk1),       	// (output) clock
+  //  	.ram_csb1(ram6_csb1),       	// (output) active low chip select
+  //  	.ram_addr1(ram6_addr1[$clog2(1024)-1:0]),	   // (output)
+  //  	.ram_din1(wbs_sram6_data1)	   	// (input) read from sram and sent to wb 
+	//);
 // Splitting register bits into fields
 always @(*) begin
 	if (wb_select) begin
@@ -846,6 +886,15 @@ always @(*) begin
    				web1 = sram_register[`WMASK_SIZE];			// dont care since we never write from port1 on any sram
    				wmask1 = sram_register[`WMASK_SIZE-1:0];    // dont care since we never write from port1 on any sram
 			end
+
+			else if(wbs_rom0_stb) begin
+				csb0_temp = rom0_csb;
+   				addr0 = rom0_addr;
+   				din0 = sram_register[`DATA_SIZE+`WMASK_SIZE+1:`WMASK_SIZE+2]; // dont care since ROM
+   				web0 = sram_register[`WMASK_SIZE];			// dont care since ROM
+   				wmask0 = sram_register[`WMASK_SIZE-1:0];    // dont care since ROM
+			end
+
 			else begin
 				// wishbone mode and got the request but the addr did not
 				// match any sram memory map
@@ -899,7 +948,6 @@ end
 
 // Apply the correct CSB
 always @(*) begin
-	// this can be improved like the following:
 	if(wb_select) begin
 		if(wbs_stb_i && wbs_cyc_i) begin
 		    if(wbs_or8_stb) begin 
@@ -912,6 +960,10 @@ always @(*) begin
 			end
 			else if(wbs_or10_stb) begin 
 				csb0 = {5'b11111, csb0_temp, 10'b1111111111};
+				csb1 = {16{1'b1}};
+			end
+			else if(wbs_rom0_stb) begin 
+				csb0 = {4'b1111, csb0_temp, 11'b11111111111};
 				csb1 = {16{1'b1}};
 			end
 			else if(wbs_or0_stb) begin
@@ -1009,8 +1061,9 @@ always @ (*) begin
        read_data1 = sram10_data1;
     end
     4'd11: begin
-       read_data0 = sram11_data0;
-       read_data1 = sram11_data1;
+      // ROM0 is connected here
+       read_data0 = rom0_data;
+       read_data1 = 'd0;  // don't care
     end
     4'd12: begin
        read_data0 = sram12_data0;

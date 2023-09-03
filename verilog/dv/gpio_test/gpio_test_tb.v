@@ -167,10 +167,10 @@ module gpio_test_tb;
 
 		//Testing all memories
 		for(i = 0; i < 11; i = i + 1) begin
-      // sram 0-6 and 9 are dual port memories
-      // sram 7 does not exist
+      // sram 0-5 and 9 are dual port memories
+      // sram 6,7 does not exist
       // sram 8 and 10 are single port memories
-      if (i < 7 || i == 9) begin
+      if (i < 6 || i == 9) begin
 		    //Testing 32B Dual Port Memories
 		     // write 1 to address 1
 		     write_sram(
@@ -237,6 +237,17 @@ module gpio_test_tb;
 		end
 
 
+      // for ROM
+    read_sram(11,   // sel
+      1'b0,   // csb0
+      1'b1,   // web0
+      16'd1,  // addr0
+      32'd255,  // din0
+      1'b1,   // csb1
+      1'b1,   // web1
+      16'd0,  // addr1
+      32'd0   // din1
+      );
 		done = 1;
 		
 	   $display("Done with tests");

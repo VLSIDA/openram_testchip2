@@ -7,8 +7,8 @@
 
 module sky130_rom_1kbyte_8x1024(
 `ifdef USE_POWER_PINS
-    vdd,
-    gnd,
+    vccd1,
+    vssd1,
 `endif
 // Port 0: R
     clk,cs,addr,dout
@@ -23,8 +23,8 @@ module sky130_rom_1kbyte_8x1024(
   parameter T_HOLD = 1 ; //Delay to hold dout value after posedge. Value is arbitrary
 
 `ifdef USE_POWER_PINS
-    inout vdd;
-    inout gnd;
+    inout vccd1;
+    inout vssd1;
 `endif
   input clk; // clock
   input wire  cs; // active high chip select
@@ -34,7 +34,7 @@ module sky130_rom_1kbyte_8x1024(
   reg [DATA_WIDTH-1:0]    mem [0:ROM_DEPTH-1];
 
   initial begin
-    $readmemh("./sky130_rom_1kbyte_8x1024.hex",mem,0,ROM_DEPTH-1);
+    $readmemh("/home/hadirkhan/chipignite/openram_testchip2/verilog/rtl/sky130_rom_1kbyte_8x1024.hex",mem,0,ROM_DEPTH-1);
   end
 
   // reg  cs_reg;

@@ -134,7 +134,8 @@ void read_dp_sram(int sel){
 
 	//// Now read them
 	if(reg_la0_data_in != 0x00000050){
-		reg_mprj_datal = 0x00000400;
+		// reg_mprj_datal = 0x00000400;
+		reg_mprj_datal = 0x00000002;
 	}
 }
 
@@ -195,10 +196,18 @@ void read_sp_sram(int sel){
 	reg_la2_oenb = reg_la2_iena = 0x00000000;    // [95:64]
 
 	// Now read them
-	if(reg_la2_data_in != 0x1DEADBEE){
-		// assert pin 1 (done) to signal error
-		reg_mprj_datal = 0x00000002;
-	}
+  // For ROM the data read is different
+  if(sel == 11) {
+	  if(reg_la2_data_in != 0x0000000F){
+	  	// assert pin 1 (done) to signal error
+	  	reg_mprj_datal = 0x00000002;
+	  }
+  } else {
+	  if(reg_la2_data_in != 0x1DEADBEE){
+	  	// assert pin 1 (done) to signal error
+	  	reg_mprj_datal = 0x00000002;
+	  }
+  }
 
 }
 
@@ -256,12 +265,7 @@ void main()
 	write_dp_sram(5);
 	read_dp_sram(5);
 	
-      // SRAM 6
-	write_dp_sram(6);
-	read_dp_sram(6);
-//
-//	/* SINGLE PORT MEMORIES */
-//
+  
 	// SRAM 8
 	write_sp_sram(8);
 	read_sp_sram(8);
@@ -274,9 +278,8 @@ void main()
 	write_sp_sram(10);
 	read_sp_sram(10);
 
-	// SRAM 11
-//	write_sp_sram(11);
-//	read_sp_sram(11);
+	// ROM 0
+  read_sp_sram(11);
 
 //	write_sp_sram(12);
 //	read_sp_sram(12);
