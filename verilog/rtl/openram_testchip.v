@@ -1,4 +1,3 @@
-
 module openram_testchip(
 `ifdef USE_POWER_PINS
 			inout vdda1,        // User area 1 3.3V supply
@@ -320,13 +319,13 @@ module openram_testchip(
 	wire wbs_or5_ack;
 	wire [31:0] wbs_or5_dat_o;
 // wires connecting between mux & sram6
-	wire wbs_or6_stb;
-	wire wbs_or6_cyc;
-	wire wbs_or6_we;
-	wire [3:0] wbs_or6_sel;
-	wire [31:0] wbs_or6_dat_i;
-	wire wbs_or6_ack;
-	wire [31:0] wbs_or6_dat_o;
+	/* wire wbs_or6_stb; */
+	/* wire wbs_or6_cyc; */
+	/* wire wbs_or6_we; */
+	/* wire [3:0] wbs_or6_sel; */
+	/* wire [31:0] wbs_or6_dat_i; */
+	/* wire wbs_or6_ack; */
+	/* wire [31:0] wbs_or6_dat_o; */
 // wires connecting between mux & rom0
 	wire wbs_rom0_stb;
 	wire wbs_rom0_cyc;
@@ -443,13 +442,13 @@ end
     	.wbs_or5_ack_i(wbs_or5_ack),
     	.wbs_or5_dat_o(wbs_or5_dat_o),
 		// wishbone signals to sram 6
-    	.wbs_or6_stb_o(wbs_or6_stb),
-    	.wbs_or6_cyc_o(wbs_or6_cyc),
-    	.wbs_or6_we_o(wbs_or6_we),
-    	.wbs_or6_sel_o(wbs_or6_sel),
-    	.wbs_or6_dat_i(wbs_or6_dat_i),
-    	.wbs_or6_ack_i(wbs_or6_ack),
-    	.wbs_or6_dat_o(wbs_or6_dat_o),
+    	/* .wbs_or6_stb_o(wbs_or6_stb), */
+    	/* .wbs_or6_cyc_o(wbs_or6_cyc), */
+    	/* .wbs_or6_we_o(wbs_or6_we), */
+    	/* .wbs_or6_sel_o(wbs_or6_sel), */
+    	/* .wbs_or6_dat_i(wbs_or6_dat_i), */
+    	/* .wbs_or6_ack_i(wbs_or6_ack), */
+    	/* .wbs_or6_dat_o(wbs_or6_dat_o), */
 		// wishbone signals to rom 0
     	.wbs_rom0_stb_o(wbs_rom0_stb),
     	.wbs_rom0_cyc_o(wbs_rom0_cyc),
@@ -873,19 +872,19 @@ always @(*) begin
    				wmask1 = sram_register[`WMASK_SIZE-1:0];    // dont care since we never write from port1 on any sram
 			end
 
-			else if(wbs_or6_stb) begin
-				csb0_temp = ram6_csb0;
-   				addr0 = ram6_addr0;
-   				din0 = ram6_din0;
-   				web0 = ram6_web0;
-   				wmask0 = ram6_wmask0;
-				// PORT R
-   				addr1 = ram6_addr1;
-   				din1 = sram_register[`DATA_SIZE+`WMASK_SIZE+1:`WMASK_SIZE+2]; // dont care since we never write from port1 on any sram
-   				csb1_temp = ram6_csb1; 
-   				web1 = sram_register[`WMASK_SIZE];			// dont care since we never write from port1 on any sram
-   				wmask1 = sram_register[`WMASK_SIZE-1:0];    // dont care since we never write from port1 on any sram
-			end
+			/* else if(wbs_or6_stb) begin */
+			/* 	csb0_temp = ram6_csb0; */
+   /* 				addr0 = ram6_addr0; */
+   /* 				din0 = ram6_din0; */
+   /* 				web0 = ram6_web0; */
+   /* 				wmask0 = ram6_wmask0; */
+			/* 	// PORT R */
+   /* 				addr1 = ram6_addr1; */
+   /* 				din1 = sram_register[`DATA_SIZE+`WMASK_SIZE+1:`WMASK_SIZE+2]; // dont care since we never write from port1 on any sram */
+   /* 				csb1_temp = ram6_csb1;  */
+   /* 				web1 = sram_register[`WMASK_SIZE];			// dont care since we never write from port1 on any sram */
+   /* 				wmask1 = sram_register[`WMASK_SIZE-1:0];    // dont care since we never write from port1 on any sram */
+			/* end */
 
 			else if(wbs_rom0_stb) begin
 				csb0_temp = rom0_csb;
@@ -990,10 +989,10 @@ always @(*) begin
 				csb0 = {10'b1111111111, csb0_temp, 5'b11111};
 				csb1 = {10'b1111111111, csb1_temp, 5'b11111};
 			end
-			else if(wbs_or6_stb) begin
-				csb0 = {9'b111111111, csb0_temp, 6'b111111};
-				csb1 = {9'b111111111, csb1_temp, 6'b111111};
-			end
+			/* else if(wbs_or6_stb) begin */
+			/* 	csb0 = {9'b111111111, csb0_temp, 6'b111111}; */
+			/* 	csb1 = {9'b111111111, csb1_temp, 6'b111111}; */
+			/* end */
 			else begin
 				csb0 = {16{1'b1}};
 				csb1 = {16{1'b1}};

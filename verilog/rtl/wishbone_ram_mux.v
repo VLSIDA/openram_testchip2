@@ -106,13 +106,13 @@ module wishbone_ram_mux
     output  [31:0]  wbs_or5_dat_o,
 	
     // Wishbone OR (Downward Facing Port) - SRAM6
-    output          wbs_or6_stb_o,
-    output          wbs_or6_cyc_o,
-    output          wbs_or6_we_o,
-    output  [3:0]   wbs_or6_sel_o,
-    input   [31:0]  wbs_or6_dat_i,
-    input           wbs_or6_ack_i,
-    output  [31:0]  wbs_or6_dat_o,
+    /* output          wbs_or6_stb_o, */
+    /* output          wbs_or6_cyc_o, */
+    /* output          wbs_or6_we_o, */
+    /* output  [3:0]   wbs_or6_sel_o, */
+    /* input   [31:0]  wbs_or6_dat_i, */
+    /* input           wbs_or6_ack_i, */
+    /* output  [31:0]  wbs_or6_dat_o, */
     
     // Wishbone OR (Downward Facing Port) - ROM0 
     output          wbs_rom0_stb_o,
@@ -256,11 +256,11 @@ assign wbs_or5_sel_o = wbs_ufp_sel_i & {4{sram5_select}};
 assign wbs_or5_dat_o = wbs_ufp_dat_i & {32{sram5_select}};
 
 // UFP -> SRAM 6
-assign wbs_or6_stb_o = wbs_ufp_stb_i & sram6_select;
-assign wbs_or6_cyc_o = wbs_ufp_cyc_i;
-assign wbs_or6_we_o = wbs_ufp_we_i & sram6_select;
-assign wbs_or6_sel_o = wbs_ufp_sel_i & {4{sram6_select}};
-assign wbs_or6_dat_o = wbs_ufp_dat_i & {32{sram6_select}};
+/* assign wbs_or6_stb_o = wbs_ufp_stb_i & sram6_select; */
+/* assign wbs_or6_cyc_o = wbs_ufp_cyc_i; */
+/* assign wbs_or6_we_o = wbs_ufp_we_i & sram6_select; */
+/* assign wbs_or6_sel_o = wbs_ufp_sel_i & {4{sram6_select}}; */
+/* assign wbs_or6_dat_o = wbs_ufp_dat_i & {32{sram6_select}}; */
 
 
 // UFP -> ROM 0
@@ -268,9 +268,9 @@ assign wbs_rom0_stb_o = wbs_ufp_stb_i & rom0_select;
 assign wbs_rom0_cyc_o = wbs_ufp_cyc_i;
 assign wbs_rom0_sel_o = wbs_ufp_sel_i & {4{rom0_select}};
 
-assign wbs_ufp_ack_o = (wbs_or8_ack_i & sram8_select) | (wbs_or9_ack_i & sram9_select) | (wbs_or10_ack_i & sram10_select) | (wbs_or0_ack_i & sram0_select) | (wbs_or1_ack_i & sram1_select) | (wbs_or2_ack_i & sram2_select) | (wbs_or3_ack_i & sram3_select) | (wbs_or4_ack_i & sram4_select) | (wbs_or5_ack_i & sram5_select) | (wbs_or6_ack_i & sram6_select) | (wbs_rom0_ack_i & rom0_select);
+assign wbs_ufp_ack_o = (wbs_or8_ack_i & sram8_select) | (wbs_or9_ack_i & sram9_select) | (wbs_or10_ack_i & sram10_select) | (wbs_or0_ack_i & sram0_select) | (wbs_or1_ack_i & sram1_select) | (wbs_or2_ack_i & sram2_select) | (wbs_or3_ack_i & sram3_select) | (wbs_or4_ack_i & sram4_select) | (wbs_or5_ack_i & sram5_select) | (wbs_rom0_ack_i & rom0_select);
 
-assign wbs_ufp_dat_o = (wbs_or8_dat_i & {32{sram8_select}}) | (wbs_or9_dat_i & {32{sram9_select}}) | (wbs_or10_dat_i & {32{sram10_select}}) | (wbs_or0_dat_i & {32{sram0_select}}) | (wbs_or1_dat_i & {32{sram1_select}}) | (wbs_or2_dat_i & {32{sram2_select}}) | (wbs_or3_dat_i & {32{sram3_select}}) | (wbs_or4_dat_i & {32{sram4_select}}) | (wbs_or5_dat_i & {32{sram5_select}}) | (wbs_or6_dat_i & {32{sram6_select}}) | (wbs_rom0_dat_i & {32{rom0_select}});
+assign wbs_ufp_dat_o = (wbs_or8_dat_i & {32{sram8_select}}) | (wbs_or9_dat_i & {32{sram9_select}}) | (wbs_or10_dat_i & {32{sram10_select}}) | (wbs_or0_dat_i & {32{sram0_select}}) | (wbs_or1_dat_i & {32{sram1_select}}) | (wbs_or2_dat_i & {32{sram2_select}}) | (wbs_or3_dat_i & {32{sram3_select}}) | (wbs_or4_dat_i & {32{sram4_select}}) | (wbs_or5_dat_i & {32{sram5_select}}) | (wbs_rom0_dat_i & {32{rom0_select}});
 
 endmodule
 
