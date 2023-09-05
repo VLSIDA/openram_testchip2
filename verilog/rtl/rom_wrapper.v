@@ -29,7 +29,7 @@ begin
   addr_reg = addr;
 end
 
-sky130_rom_1kbyte_8x1024 rom (
+sky130_rom_1kbyte_8x1024_tapeout rom (
  `ifdef USE_POWER_PINS
     .vccd1(vccd1),
     .vssd1(vssd1),

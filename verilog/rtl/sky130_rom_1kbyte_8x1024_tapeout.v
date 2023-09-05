@@ -5,7 +5,7 @@
 // Data Type: bin
 // Data File: sky130_rom_1kbyte_8x1024.bin
 
-module sky130_rom_1kbyte_8x1024(
+module sky130_rom_1kbyte_8x1024_tapeout(
 `ifdef USE_POWER_PINS
     vccd1,
     vssd1,
