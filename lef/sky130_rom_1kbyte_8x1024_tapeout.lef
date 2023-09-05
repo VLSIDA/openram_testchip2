@@ -1,0 +1,193 @@
+VERSION 5.4 ;
+NAMESCASESENSITIVE ON ;
+BUSBITCHARS "[]" ;
+DIVIDERCHAR "/" ;
+UNITS
+  DATABASE MICRONS 2000 ;
+END UNITS
+MACRO sky130_rom_1kbyte_8x1024_tapeout
+   CLASS BLOCK ;
+   SIZE 174.92 BY 127.875 ;
+   SYMMETRY X Y R90 ;
+   PIN clk
+      DIRECTION INPUT ;
+      PORT
+         LAYER met3 ;
+         RECT  -7.48 9.045 -7.1 9.425 ;
+      END
+   END clk
+   PIN cs
+      DIRECTION INPUT ;
+      PORT
+         LAYER met4 ;
+         RECT  15.265 -7.48 15.645 -7.1 ;
+      END
+   END cs
+   PIN addr[0]
+      DIRECTION INPUT ;
+      PORT
+         LAYER met4 ;
+         RECT  24.83 -7.48 25.21 -7.1 ;
+      END
+   END addr[0]
+   PIN addr[1]
+      DIRECTION INPUT ;
+      PORT
+         LAYER met4 ;
+         RECT  26.87 -7.48 27.25 -7.1 ;
+      END
+   END addr[1]
+   PIN addr[2]
+      DIRECTION INPUT ;
+      PORT
+         LAYER met4 ;
+         RECT  28.91 -7.48 29.29 -7.1 ;
+      END
+   END addr[2]
+   PIN addr[3]
+      DIRECTION INPUT ;
+      PORT
+         LAYER met4 ;
+         RECT  30.205 -7.48 30.585 -7.1 ;
+      END
+   END addr[3]
+   PIN addr[4]
+      DIRECTION INPUT ;
+      PORT
+         LAYER met3 ;
+         RECT  -7.48 38.295 -7.1 38.675 ;
+      END
+   END addr[4]
+   PIN addr[5]
+      DIRECTION INPUT ;
+      PORT
+         LAYER met3 ;
+         RECT  -7.48 37.55 -7.1 37.93 ;
+      END
+   END addr[5]
+   PIN addr[6]
+      DIRECTION INPUT ;
+      PORT
+         LAYER met3 ;
+         RECT  -7.48 36.86 -7.1 37.24 ;
+      END
+   END addr[6]
+   PIN addr[7]
+      DIRECTION INPUT ;
+      PORT
+         LAYER met3 ;
+         RECT  -7.48 40.305 -7.1 40.685 ;
+      END
+   END addr[7]
+   PIN addr[8]
+      DIRECTION INPUT ;
+      PORT
+         LAYER met3 ;
+         RECT  -7.48 36.17 -7.1 36.55 ;
+      END
+   END addr[8]
+   PIN addr[9]
+      DIRECTION INPUT ;
+      PORT
+         LAYER met3 ;
+         RECT  -7.48 40.995 -7.1 41.375 ;
+      END
+   END addr[9]
+   PIN dout[0]
+      DIRECTION OUTPUT ;
+      PORT
+         LAYER met4 ;
+         RECT  51.675 -7.48 52.055 -7.1 ;
+      END
+   END dout[0]
+   PIN dout[1]
+      DIRECTION OUTPUT ;
+      PORT
+         LAYER met4 ;
+         RECT  53.215 -7.48 53.595 -7.1 ;
+      END
+   END dout[1]
+   PIN dout[2]
+      DIRECTION OUTPUT ;
+      PORT
+         LAYER met4 ;
+         RECT  54.755 -7.48 55.135 -7.1 ;
+      END
+   END dout[2]
+   PIN dout[3]
+      DIRECTION OUTPUT ;
+      PORT
+         LAYER met4 ;
+         RECT  56.295 -7.48 56.675 -7.1 ;
+      END
+   END dout[3]
+   PIN dout[4]
+      DIRECTION OUTPUT ;
+      PORT
+         LAYER met4 ;
+         RECT  57.835 -7.48 58.215 -7.1 ;
+      END
+   END dout[4]
+   PIN dout[5]
+      DIRECTION OUTPUT ;
+      PORT
+         LAYER met4 ;
+         RECT  59.375 -7.48 59.755 -7.1 ;
+      END
+   END dout[5]
+   PIN dout[6]
+      DIRECTION OUTPUT ;
+      PORT
+         LAYER met4 ;
+         RECT  60.915 -7.48 61.295 -7.1 ;
+      END
+   END dout[6]
+   PIN dout[7]
+      DIRECTION OUTPUT ;
+      PORT
+         LAYER met4 ;
+         RECT  62.435 -7.48 62.815 -7.1 ;
+      END
+   END dout[7]
+   PIN vccd1
+      DIRECTION INOUT ;
+      USE POWER ; 
+      SHAPE ABUTMENT ; 
+      PORT
+         LAYER met4 ;
+         RECT  -7.48 -7.48 -5.74 135.355 ;
+         LAYER met3 ;
+         RECT  -7.48 133.615 182.4 135.355 ;
+         LAYER met3 ;
+         RECT  -7.48 -7.48 182.4 -5.74 ;
+         LAYER met4 ;
+         RECT  180.66 -7.48 182.4 135.355 ;
+      END
+   END vccd1
+   PIN vssd1
+      DIRECTION INOUT ;
+      USE GROUND ; 
+      SHAPE ABUTMENT ; 
+      PORT
+         LAYER met4 ;
+         RECT  177.18 -4.0 178.92 131.875 ;
+         LAYER met3 ;
+         RECT  -4.0 -4.0 178.92 -2.26 ;
+         LAYER met3 ;
+         RECT  -4.0 130.135 178.92 131.875 ;
+         LAYER met4 ;
+         RECT  -4.0 -4.0 -2.26 131.875 ;
+      END
+   END vssd1
+   OBS
+   LAYER  met1 ;
+      RECT  0.62 0.62 174.3 127.255 ;
+   LAYER  met2 ;
+      RECT  0.62 0.62 174.3 127.255 ;
+   LAYER  met3 ;
+      RECT  0.62 0.62 174.3 127.255 ;
+   LAYER  met4 ;
+      RECT  0.62 0.62 174.3 127.255 ;
+   END
+END    sky130_rom_1kbyte_8x1024_tapeout
+END    LIBRARY
