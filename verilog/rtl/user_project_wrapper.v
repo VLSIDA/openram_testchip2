@@ -303,7 +303,7 @@ module user_project_wrapper #(
    wire [`DATA_SIZE-1:0]  sram4_dout1;
    wire [`DATA_SIZE-1:0]  sram5_dout0;
    wire [`DATA_SIZE-1:0]  sram5_dout1;
-   wire [`DATA_SIZE-1:0]  rom0_dout;
+   wire [`DATA_SIZE-1:0]  rom0_dout = 0;
    wire [`DATA_SIZE-1:0]  sram6_dout0 = 0;
    wire [`DATA_SIZE-1:0]  sram6_dout1 = 0;
    wire [`DATA_SIZE-1:0]  sram7_dout0 = 0;
@@ -440,19 +440,19 @@ sky130_sram_2kbyte_1rw1r_32x512_8 SRAM5
       .dout1  (sram5_dout1)
       );
 
- rom_wrapper ROM0
-      (
-      `ifdef USE_POWER_PINS
-       .vccd1(vccd1),
-       .vssd1(vssd1),
-       `endif
-       .clk   (clk),
-       .cs   (~csb0[11]),
-       .addr  (addr0[9:0]),
-       .dout  (rom0_dout[7:0])
-       );
-
-   assign rom0_dout[`DATA_SIZE-1:8] = 0;
+ /* rom_wrapper ROM0 */
+ /*      ( */
+ /*      `ifdef USE_POWER_PINS */
+ /*       .vccd1(vccd1), */
+ /*       .vssd1(vssd1), */
+ /*       `endif */
+ /*       .clk   (clk), */
+ /*       .cs   (~csb0[11]), */
+ /*       .addr  (addr0[9:0]), */
+ /*       .dout  (rom0_dout[7:0]) */
+ /*       ); */
+ /**/
+ /*   assign rom0_dout[`DATA_SIZE-1:8] = 0; */
 
  /* sky130_sram_4kbyte_1rw1r_32x1024_8 SRAM6 */
  /*      ( */

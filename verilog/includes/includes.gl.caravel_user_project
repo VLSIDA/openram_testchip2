@@ -25,4 +25,6 @@
 -v $(USER_PROJECT_VERILOG)/rtl/sky130_sram_4kbyte_1rw_64x512_8.v	     
 -v $(USER_PROJECT_VERILOG)/rtl/sky130_sram_8kbyte_1rw1r_32x2048_8.v	     
 -v $(USER_PROJECT_VERILOG)/rtl/sky130_sram_8kbyte_1rw_64x1024_8.v	     
+-v $(USER_PROJECT_VERILOG)/rtl/sky130_rom_1kbyte_8x1024_tapeout.v
+-v $(USER_PROJECT_VERILOG)/rtl/sky130_sram_1kbyte_1rw1r_8x1024_8_norbl.v	     
 -v $(USER_PROJECT_VERILOG)/rtl/rram_test.v
