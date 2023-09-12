@@ -1,11 +1,11 @@
 magic
 tech sky130B
 magscale 1 2
-timestamp 1694376760
+timestamp 1694500263
 << obsli1 >>
 rect 1104 2159 582820 701777
 << obsm1 >>
-rect 566 1980 583450 701808
+rect 566 1572 583450 701808
 << metal2 >>
 rect 8086 703520 8198 704960
 rect 24278 703520 24390 704960
@@ -4496,8 +4496,8 @@ port 645 nsew signal input
 string FIXED_BBOX 0 0 584000 704000
 string LEFclass BLOCK
 string LEFview TRUE
-string GDS_END 196228366
-string GDS_FILE /home/hadirkhan/chipignite/openram_testchip2/openlane/user_project_wrapper/runs/23_09_10_12_47/results/signoff/user_project_wrapper.magic.gds
+string GDS_END 196262168
+string GDS_FILE /home/hadirkhan/chipignite/openram_testchip2/openlane/user_project_wrapper/runs/23_09_11_23_06/results/signoff/user_project_wrapper.magic.gds
 string GDS_START 84866614
 << end >>
 

@@ -119,6 +119,7 @@ $(blocks): % :
 dv_patterns=$(shell cd verilog/dv && find * -maxdepth 0 -type d)
 dv-targets-rtl=$(dv_patterns:%=verify-%-rtl)
 dv-targets-gl=$(dv_patterns:%=verify-%-gl)
+dv-targets-rtl_with_user_gl=$(dv_patterns:%=verify-%-rtl_with_user_gl)
 dv-targets-gl-sdf=$(dv_patterns:%=verify-%-gl-sdf)
 
 TARGET_PATH=$(shell pwd)
@@ -163,6 +164,10 @@ $(dv-targets-rtl): verify-%-rtl: $(dv_base_dependencies)
 
 $(dv-targets-gl): SIM=GL
 $(dv-targets-gl): verify-%-gl: $(dv_base_dependencies)
+	$(docker_run_verify)
+
+$(dv-targets-rtl_with_user_gl): SIM=RTL_WITH_USER_GL
+$(dv-targets-rtl_with_user_gl): verify-%-rtl_with_user_gl: $(dv_base_dependencies)
 	$(docker_run_verify)
 
 $(dv-targets-gl-sdf): SIM=GL_SDF

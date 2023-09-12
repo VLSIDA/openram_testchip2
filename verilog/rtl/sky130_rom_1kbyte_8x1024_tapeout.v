@@ -41,7 +41,7 @@ module sky130_rom_1kbyte_8x1024_tapeout(
   // reg [ADDR_WIDTH-1:0]  addr_reg;
   //wire [DATA_WIDTH-1:0]  dout;
 
-  always @(posedge clk)
+  always @(negedge clk)
   begin : MEM_READ0
     #(T_HOLD) dout <= 8'bx;
     if ( cs && VERBOSE )

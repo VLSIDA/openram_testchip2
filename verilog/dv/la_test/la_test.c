@@ -279,7 +279,7 @@ void main()
 	read_sp_sram(10);
 
 	// ROM 0
-  read_sp_sram(11);
+   read_sp_sram(11);
 
 //	write_sp_sram(12);
 //	read_sp_sram(12);
